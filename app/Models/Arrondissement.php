@@ -11,4 +11,8 @@ class Arrondissement extends Model
     protected $fillable = [
         'nom','departement_id'
     ];
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class);
+    }
 }

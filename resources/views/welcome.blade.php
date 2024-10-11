@@ -81,7 +81,7 @@
                                     <li><a href="{{ route('rtscentre.create') }}"> Ajouter</a></li>
                                     <li><a href="{{ route('rtscentre.index') }}">Lister</a></li>
                                 </ul>
-                            </li> 
+                            </li>
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Bureau de vote </span></a>
                                 <ul class="list-unstyled">
@@ -109,14 +109,14 @@
                                     <i class="mdi mdi-airplay"></i> DIASPORA
                                 </a>
                             </li>
-    
+
                                 <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Centre de Vote</span></a>
                                     <ul class="list-unstyled">
                                         <li><a href="{{ route('rtscentree.create') }}"> Ajouter</a></li>
                                         <li><a href="{{ route('rtscentree.index') }}">Lister</a></li>
                                     </ul>
-                                </li> 
+                                </li>
                                 <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect Par Bureau de Vote </span></a>
                                     <ul class="list-unstyled">
@@ -131,7 +131,7 @@
                                         <li><a href="{{ route('rtspays.index') }}">Lister</a></li>
                                     </ul>
                                 </li>
-        
+
                             <li class="menu-title">Menu</li>
                                 <li>
                                     <a href="{{ route('home') }}">
@@ -157,6 +157,13 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ route('departement.create') }}"> Ajouter</a></li>
                                     <li><a href="{{ route('departement.index') }}"> Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Arrondissement </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('arrondissement.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('arrondissement.index') }}">Lister</a></li>
                                 </ul>
                             </li>
                             <li class="has_sub">
@@ -230,12 +237,12 @@
                                 </ul>
                             </li>
 
-                            
+
                         </li>
 
-                        
-                           
-                           
+
+
+
                         </ul>
                     </div>
                     <div class="clearfix"></div>
@@ -360,8 +367,8 @@
                 $('form').parsley();
                 window.Parsley.setLocale("fr");
             });
-           
-        </script> 
+
+        </script>
 
 
     </body>

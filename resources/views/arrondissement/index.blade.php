@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('title', '| commune')
+@section('title', '| arrondissement')
 
 
 @section('content')
@@ -11,7 +11,7 @@
 
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ route('commune.create') }}" >Liste des Communes</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ route('arrondissement.create') }}" >Liste des Arrondissements</a></li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Starter</h4>
@@ -32,7 +32,7 @@
 
 <div class="col-12">
     <div class="card ">
-        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES Communes</div>
+        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES Arrondissements</div>
             <div class="card-body">
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalform2">
                     importer
@@ -41,22 +41,20 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nom Commune</th>
+                            <th>Nom Arrondissement</th>
                             <th>Nom département</th>
-                            <th>Arrondisement</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($communes as $commune)
+                    @foreach ($arrondissements as $arrondissement)
                         <tr>
-                            <td>{{ $commune->id }}</td>
-                            <td>{{ $commune->nom }}</td>
-                            <td>{{ $commune->departement->nom }}</td>
-                            <td> @if($commune->arrondissement) {{ $commune->arrondissement->nom }} @endif</td>
+                            <td>{{ $arrondissement->id }}</td>
+                            <td>{{ $arrondissement->nom }}</td>
+                            <td>{{ $arrondissement->departement->nom }}</td>
                             <td>
-                                <a href="{{ route('commune.edit', $commune->id) }}" role="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                {!! Form::open(['method' => 'DELETE', 'route'=>['commune.destroy', $commune->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
+                                <a href="{{ route('arrondissement.edit', $arrondissement->id) }}" role="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                {!! Form::open(['method' => 'DELETE', 'route'=>['arrondissement.destroy', $arrondissement->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
                                 <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                                 {!! Form::close() !!}
 
@@ -79,7 +77,7 @@
 <div class="modal fade" id="exampleModalform2" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('importer.commune') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('importer.arrondissement') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
                 <h5 class="modal-title">New message</h5>

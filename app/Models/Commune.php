@@ -10,12 +10,16 @@ class Commune extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nom','departement_id','latitude','longitude'
+        'nom','departement_id','latitude','longitude','arrondissement_id'
     ];
     public function departement(){
         return $this->belongsTo(Departement::class);
     }
     public function centrevotes(){
         return $this->hasMany(Centrevote::class);
+    }
+
+    public function arrondissement(){
+        return $this->belongsTo(Arrondissement::class);
     }
 }

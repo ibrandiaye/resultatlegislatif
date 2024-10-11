@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\CentrevoteController;
 use App\Http\Controllers\CentrevoteeController;
@@ -41,6 +42,8 @@ Route::get('/',[HomeController::class,'index'])->name("home")->middleware("auth"
 Route::resource('region', RegionController::class)->middleware("auth");
 Route::resource('departement', DepartementController::class)->middleware("auth");
 Route::resource('commune', CommuneController::class)->middleware("auth");
+Route::resource('arrondissement', ArrondissementController::class)->middleware("auth");
+
 Route::resource('candidat', CandidatController::class)->middleware("auth");
 Route::resource('centrevote', CentrevoteController::class)->middleware("auth");
 Route::resource('lieuvote', LieuvoteController::class)->middleware("auth");
@@ -69,6 +72,7 @@ Route::get('/commune/by/departement/{nom}',[CommuneController::class,'byDepartem
 
 Route::post('/importer/departement',[DepartementController::class,'importExcel'])->name("importer.departement")->middleware("auth");
 Route::post('/importer/commune',[CommuneController::class,'importExcel'])->name("importer.commune")->middleware("auth");
+Route::post('/importer/arrondissement',[ArrondissementController::class,'importExcel'])->name("importer.arrondissement")->middleware("auth");
 
 Route::post('/importer/centrevote',[CentrevoteController::class,'importExcel'])->name("importer.centrevote")->middleware("auth");
 Route::post('/importer/lieuvote',[LieuvoteController::class,'importExcel'])->name("importer.lieuvote")->middleware("auth");

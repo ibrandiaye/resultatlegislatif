@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Imports\CommuneImport;
 use App\Imports\DepartementImport;
 use App\Models\Commune;
+use App\Repositories\ArrondissementRepository;
 use App\Repositories\CommuneRepository;
 use App\Repositories\DepartementRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
@@ -15,10 +17,13 @@ class CommuneController extends Controller
 {
     protected $communeRepository;
     protected $departementRepository;
+    protected $arrondissementRepository;
 
-    public function __construct(CommuneRepository $communeRepository, DepartementRepository $departementRepository){
+    public function __construct(CommuneRepository $communeRepository, DepartementRepository $departementRepository,
+    ArrondissementRepository $arrondissementRepository){
         $this->communeRepository =$communeRepository;
         $this->departementRepository = $departementRepository;
+        $this->arrondissementRepository = $arrondissementRepository;
     }
 
     /**
@@ -140,26 +145,45 @@ class CommuneController extends Controller
 
         // 4. On insère toutes les lignes dans la base de données
       //  $rows->toArray());
-      $departements = $this->departementRepository->getAll();
-      foreach ($rows as $key => $commune) {
-        foreach ($departements as $key1 => $departement) {
-            if($commune["departement"]==$departement->nom){
-                Commune::create([
-                    "nom"=>$commune['commune'],
-                    "departement_id"=>$departement->id/* ,
-                    "latitude"=>$commune['latitude'],
-        "longitude"=>$commune['longitude'] */
-                ]);
+     /*  $arrondissments = $this->arrondissementRepository->getAll();
+        foreach ($rows as $key => $commune)
+        {
+            foreach ($arrondissments as $key1 => $arrondissement)
+            {
+                if($commune["arrondissement"]==$arrondissement->nom)
+                {
+                    Commune::create([
+                        "nom"=>$commune['commune'],
+                        "departement_id"=>$arrondissement->departement_id ,
+                        "arrondissement_id"=>$arrondissement->departement_id
+                    ]);
+                }
+            }
+
+        } */
+        $communes = $this->communeRepository->getAll();
+
+        foreach ($rows as $key => $communeFile) {
+            foreach ($communes as $key1 => $commune)
+            {
+                if(  $commune && $communeFile["commune"]==$commune->nom)
+                {
+                    $arrondissement = $this->arrondissementRepository->getOneByName($communeFile["arrondissement"]);
+                var_dump($communeFile["arrondissement"]);
+                if(!empty($arrondissement))
+                    DB::table("communes")->where("id",$commune->id)->update(["arrondissement_id"=>$arrondissement->id]);
+                else
+                 DB::table("communes")->where("id",$commune->id)->update(["arrondissement_id"=>null]);
+                }
             }
         }
 
-    }
-            // 5. On supprime le fichier uploadé
-            $reader->close(); // On ferme le $reader
-           // unlink($fichier);
+        // 5. On supprime le fichier uploadé
+        $reader->close(); // On ferme le $reader
+        // unlink($fichier);
 
-            // 6. Retour vers le formulaire avec un message $msg
-            return redirect()->back()->with('success', 'Données importées avec succès.');
+        // 6. Retour vers le formulaire avec un message $msg
+        return redirect()->back()->with('success', 'Données importées avec succès.');
     }
 
     public function getByDepartement($departement){
