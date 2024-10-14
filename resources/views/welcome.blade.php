@@ -141,6 +141,13 @@
                                     </a>
                                 </li>
                                 <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Utilisateur </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('user.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('user.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Candidat </span></a>
                                     <ul class="list-unstyled">
                                         <li><a href="{{ route('candidat.create') }}"> Ajouter</a></li>
