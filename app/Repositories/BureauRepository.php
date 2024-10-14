@@ -21,6 +21,17 @@ class BureauRepository extends RessourceRepository{
         ->where("communes.arrondissement_id",Auth::user()->arrondissement_id)
         ->get();
     }
+
+    public function getByLieuVote($id)
+    {
+        return DB::table("bureaus")
+        ->join("communes","bureaus.commune_id","=","communes.id")
+        ->join("lieuvotes","bureaus.lieuvote_id","=","lieuvotes.id")
+        ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+        ->select("bureaus.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote")
+        ->where("lieuvotes.id",$id)
+        ->get();
+    }
     public function getByBureauVote($id)
     {
         return DB::table("bureaus")
@@ -41,5 +52,10 @@ class BureauRepository extends RessourceRepository{
         ->select("bureaus.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote")
         ->where("lieuvotes.centrevote_id",$id)
         ->get();
+    }
+
+    public function destroyByLieuVote($id)
+    {
+       return DB::table("bureaus")->where("lieuvote_id",$id)->delete();
     }
 }

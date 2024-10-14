@@ -62,6 +62,12 @@ Route::resource('rtsdepartement', RtsDepartementontroller::class)->middleware("a
 Route::resource('user', controller: UserController::class)->middleware("auth");
 Route::resource('bureau', controller: BureauController::class)->middleware("auth");
 
+Route::get('lieuvote/bureau/create/{id}/{commune}', [BureauController::class,'createByLieuVote'])->name("lieuvote.bureau.create")->middleware("auth");
+Route::get('lieuvote/destroy/destroy/{id}', [BureauController::class,'destroyByLieuVote'])->name("destroy.by.lieuvote")->middleware("auth");
+Route::get('bureau/by/lieuvote/{id}', [BureauController::class,'getByLieuVote'])->name("bureau.by.lieuvote")->middleware("auth");
+
+
+
 Route::get('/participation/by/heure/{heure}',[ParticipationController::class,'getParticipationByHeure'])->name("participation.heure")->middleware("auth");
 
 Route::post('/update/password',[UserController::class,'updatePassword'])->name("user.password.update")->middleware(["auth"]);

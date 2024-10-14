@@ -44,7 +44,7 @@
 table{
     width: 100%;
 }
-  
+
         </style>
 
 <div class="container">
@@ -54,7 +54,7 @@ table{
     <!-- Begin page -->
 
 <div class="row">
-       
+
             <h5>REPUBLIQUE DU SENEGAL </h5><br/>
 </div>
 
@@ -75,14 +75,14 @@ table{
 
 </div>
 <div class="row">
-    <h6>Commune de {{$bureaus[0]->commune}} </h6><br>
+    <h6>Commune de @if(count($bureaus) > 0) {{$bureaus[0]->commune}} @endif</h6><br>
 
 </div>
 
 
 <div class="row text-center">
     <div class="col-4"></div>
-   
+
     <div class="col-4">
         <h6><strong>Menbre de Bureau vote</strong></h6>
     </div>
@@ -90,23 +90,23 @@ table{
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
-        <h6>Lieu de vote {{ $bureaus[0]->centrevote}}</h6>
+        <h6>Lieu de vote @if(count($bureaus) > 0){{ $bureaus[0]->centrevote}} @endif</h6>
 
     </div>
 </div>
 <div class="row">
     <div class="col-4"></div>
     <div class="col-4">
-        <h6>Bureau de vote numéro {{ $bureaus[0]->lieuvote}} </h6>
+        <h6>Bureau de vote numéro @if(count($bureaus) > 0){{ $bureaus[0]->lieuvote}} @endif</h6>
 
     </div>
 
 </div>
-  
-    
+
+
 
 <div class="row">
-  
+
     <div class="col-sm-12">
 
         <table   class="table table-bordered  table-striped text-center ">
@@ -115,11 +115,11 @@ table{
                     <th>Fonction</th>
                     <th>Prenom et Nom</th>
                     <th>Profession</th>
-            
+
                 </tr>
             </thead>
             <tbody>
-            
+
                 @foreach ($bureaus as $bureau)
                         <tr>
                             <td>{{ $bureau->fonction }}</td>
@@ -128,12 +128,12 @@ table{
 
 
                         </tr>
-                @endforeach        
+                @endforeach
             </tbody>
-                
+
         </table>
-  
-            
+
+
     </div>
     <div class="col-sm-1">
 
@@ -143,7 +143,7 @@ table{
 
 
 
-  
+
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 

@@ -38,6 +38,13 @@ class BureauController extends Controller
         return view('bureau.index',compact('bureaus'));
     }
 
+    public function getByLieuVote($id)
+    {
+        $bureaus = $this->bureauRepository->getByLieuVote($id);
+        return view('bureau.index',compact('bureaus'));
+    }
+
+
     public function allBureauApi(){
         $bureaus = $this->bureauRepository->getAll();
         return response()->json($bureaus);
@@ -54,6 +61,13 @@ class BureauController extends Controller
         return view('bureau.add',compact('lieuvotes','communes'));
     }
 
+    public function createByLieuVote($id,$commune)
+    {
+        $lieuvote_id = $id;
+        $commune_id  = $commune;
+        return view('bureau.add_lieuvote',compact('lieuvote_id','commune_id'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,12 +81,19 @@ class BureauController extends Controller
             'prenom' => 'required',
             'fonction' => 'required|string',
             'tel' => 'required|string',
-    
+
             //'g-recaptcha-response' => 'required|captcha',
             ], [
                 'tel.unique' => 'Cette personne est déjà affecté.',
-               
+
             ]);
+            $bureaus = $this->bureauRepository->getByLieuVote($request->lieuvote_id);
+            foreach ($bureaus as $key => $value) {
+                 if($value->fonction==$request->fonction)
+                 {
+                    return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction)->withInput();
+                 }
+            }
         $bureaus = $this->bureauRepository->store($request->all());
         return redirect('bureau');
 
@@ -139,6 +160,12 @@ class BureauController extends Controller
         $centrevote = $this->centrevoteRepository->getBureauByCentre($id);
         $arrondissement = $this->arrondissementRepository->getOneArrondissementWithdepartementAndRegion(Auth::user()->arrondissement_id);
         return view("bureau.doc-centre",compact("centrevote","arrondissement"));
+    }
+
+    public function destroyByLieuVote($id)
+    {
+        $this->bureauRepository->destroyByLieuVote($id);
+        return redirect()->back();
     }
 
     /*public function docParCentre($id)

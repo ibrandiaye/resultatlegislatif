@@ -38,34 +38,9 @@
                                 @endif
 
                             <div class="row">
-                                <div class="col">
-                                    <label>Commune</label>
-                                    <select class="form-control" id="commune_id" name="commune_id" required>
-                                        @foreach ($communes as $commune)
-                                        <option value="{{$commune->id}}">{{$commune->nom}}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Centre de Vote</label>
-                                    <select class="form-control" name="centrevote_id" required="">
-                                        @foreach ($centrevotes as $centrevote)
-                                        <option {{$bureau->centrevote_id == $centrevote->id ? 'selected' : ''}}
-                                            value="{{$centrevote->id}}">{{$centrevote->nom}}</option>
-                                            @endforeach
 
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Lieu de vote</label>
-                                    <select class="form-control" name="lieuvote_id" required="">
-                                        @foreach ($lieuvotes as $lieuvote)
-                                        <option {{$bureau->lieuvote_id == $lieuvote->id ? 'selected' : ''}}
-                                            value="{{$lieuvote->id}}">{{$lieuvote->nom}}</option>
-                                            @endforeach
-
-                                    </select>
-                                </div>
+                                <input  type="hidden" name="commune_id" value="{{ $bureau->commune_id }}">
+                                <input  type="hidden" name="lieuvote_id" value="{{ $bureau->lieuvote_id }}">
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>Prenom </label>
@@ -92,18 +67,18 @@
                                             <option value="president" {{$bureau->fonction=='president' ? 'selected' : ''}}>Président</option>
                                             <option value="asceseur" {{$bureau->fonction=='asceseur' ? 'selected' : ''}}>Asceseur</option>
                                             <option value="secretaire" {{$bureau->fonction=='secretaire' ? 'selected' : ''}}>Secretaire </option>
-                                              
+
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Profession </label>
                                     <input type="text" name="profession"  value="{{ $bureau->profession }}" class="form-control"  >
                                 </div>
                             </div>
-
+                        </div>
                                 <div>
                                     <center>
                                         <button type="submit" class="btn btn-success btn btn-lg "> MODIFIER</button>
@@ -169,11 +144,11 @@
                         vdata:'_token = <?php echo csrf_token() ?>',
                         success:function(data) {
                          //   alert(data)
-                           
+
                             $('#electeur').empty()
-                           $('#electeur').append("<h4> Nombre Electeurs : "+data.nb+"</h4>") 
-                           $('#nb_electeur').val(data.nb)             
-            
+                           $('#electeur').append("<h4> Nombre Electeurs : "+data.nb+"</h4>")
+                           $('#nb_electeur').val(data.nb)
+
                         }
                     });
                 });

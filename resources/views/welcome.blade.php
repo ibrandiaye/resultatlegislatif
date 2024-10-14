@@ -56,7 +56,7 @@
                         <ul>
                             @if(Auth::user()->role=='admin')
                             <li class="menu-title">
-                              
+
                                 <li>
                                     <a href="{{ route('home') }}">
                                         <i class="mdi mdi-airplay"></i> NATIONAL
@@ -251,22 +251,27 @@
 
                             @endif
                             @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet')
-                            <li class="has_sub">
+                           {{--  <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau </span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ route('bureau.create') }}"> Ajouter</a></li>
                                     <li><a href="{{ route('bureau.index') }}">Lister</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             @endif
                             @if( Auth::user()->role=='prefet')
                             <li>
+                                <a href="{{ route('home') }}">
+                                <i class="mdi mdi-clock"></i> Tableau de bords
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
-                              
+
                             </li>
                             @endif
 
-                            
+
 
                         </ul>
                     </div>

@@ -33,7 +33,7 @@
     <div class="card ">
         <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES lieuvotes</div>
             <div class="card-body">
-                
+
                 <table  id="datatable-buttons" class="table table-bordered table-responsive-md table-striped text-center datatable-buttons">
                     <thead>
                         <tr>
@@ -48,14 +48,14 @@
                     </thead>
                     <tbody>
                     @foreach ($lieuvotes as $lieuvote)
-                       
+
                             <tr>
 
                                 <td>{{ $lieuvote->centrevote->commune->nom }}</td>
                                 <td>{{ $lieuvote->centrevote->nom }}</td>
                                 <td>{{ $lieuvote->nom }}</td>
                                 <td>{{ $lieuvote->nb }}</td>
-                                <td> 
+                                <td>
                                     @if (count($lieuvote->bureaus)<3)
                                         <span class="badge badge-danger">Incompléte</span>
                                     @else
@@ -63,7 +63,13 @@
                                     @endif
                                   </td>
                                 <td>
-                                    <a href="{{ route('doc.bureau', $lieuvote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+
+                                    <a href="{{ route('bureau.by.lieuvote', $lieuvote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('doc.bureau', $lieuvote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i></a>
+                                    <a href="{{ route('lieuvote.bureau.create', ["id"=>$lieuvote->id,"commune"=> $lieuvote->centrevote->commune->id]) }}" role="button" class="btn btn-info"><i class="fas fa-user"></i></a>
+                                    {!! Form::open(['method' => 'GET', 'route'=>['destroy.by.lieuvote', $lieuvote->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer les membres du bureau ?')) { return false; }"]) !!}
+                                    <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    {!! Form::close() !!}
 
                                 </td>
                         </tr>
