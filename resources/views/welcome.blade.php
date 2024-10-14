@@ -54,194 +54,212 @@
 
                     <div id="sidebar-menu">
                         <ul>
+                            @if(Auth::user()->role=='admin')
                             <li class="menu-title">
+                              
                                 <li>
                                     <a href="{{ route('home') }}">
-                                    <i class="mdi mdi-airplay"></i> NATIONAL
-                                </a>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Taux de Participation </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('participation.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('participation.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Resultat Bureau de vote Temoin </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtstemoin.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtstemoin.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Centre de vote </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtscentre.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtscentre.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Bureau de vote </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtslieu.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtslieu.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par commune </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtscommune.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtscommune.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Departement </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtsdepartement.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtsdepartement.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-title">
-                                <li>
-                                    <a href="{{ route('home') }}">
-                                    <i class="mdi mdi-airplay"></i> DIASPORA
-                                </a>
-                            </li>
+                                        <i class="mdi mdi-airplay"></i> NATIONAL
+                                    </a>
+                                </li>
 
                                 <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Centre de Vote</span></a>
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Taux de Participation </span></a>
                                     <ul class="list-unstyled">
-                                        <li><a href="{{ route('rtscentree.create') }}"> Ajouter</a></li>
-                                        <li><a href="{{ route('rtscentree.index') }}">Lister</a></li>
+                                        <li><a href="{{ route('participation.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('participation.index') }}">Lister</a></li>
                                     </ul>
                                 </li>
                                 <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect Par Bureau de Vote </span></a>
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Resultat Bureau de vote Temoin </span></a>
                                     <ul class="list-unstyled">
-                                        <li><a href="{{ route('rtslieue.create') }}"> Ajouter</a></li>
-                                        <li><a href="{{ route('rtslieue.index') }}">Lister</a></li>
+                                        <li><a href="{{ route('rtstemoin.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('rtstemoin.index') }}">Lister</a></li>
                                     </ul>
                                 </li>
                                 <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect Par Pays </span></a>
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Centre de vote </span></a>
                                     <ul class="list-unstyled">
-                                        <li><a href="{{ route('rtspays.create') }}"> Ajouter</a></li>
-                                        <li><a href="{{ route('rtspays.index') }}">Lister</a></li>
+                                        <li><a href="{{ route('rtscentre.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('rtscentre.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Bureau de vote </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('rtslieu.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('rtslieu.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par commune </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('rtscommune.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('rtscommune.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Departement </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('rtsdepartement.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('rtsdepartement.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-title">
+                                    <li>
+                                        <a href="{{ route('home') }}">
+                                        <i class="mdi mdi-airplay"></i> DIASPORA
+                                        </a>
+                                    </li>
+
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Centre de Vote</span></a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ route('rtscentree.create') }}"> Ajouter</a></li>
+                                            <li><a href="{{ route('rtscentree.index') }}">Lister</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect Par Bureau de Vote </span></a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ route('rtslieue.create') }}"> Ajouter</a></li>
+                                            <li><a href="{{ route('rtslieue.index') }}">Lister</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect Par Pays </span></a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ route('rtspays.create') }}"> Ajouter</a></li>
+                                            <li><a href="{{ route('rtspays.index') }}">Lister</a></li>
+                                        </ul>
+                                    </li>
+
+                                <li class="menu-title">Menu</li>
+                                    <li>
+                                        <a href="{{ route('home') }}">
+                                        <i class="mdi mdi-airplay"></i> Configuration
+                                    </a>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Candidat </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('candidat.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('candidat.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Region </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('region.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('region.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Departement </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('departement.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('departement.index') }}"> Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Arrondissement </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('arrondissement.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('arrondissement.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Commune </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('commune.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('commune.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collecteur </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('collecteur.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('collecteur.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Juridiction </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('juridiction.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('juridiction.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Pays </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('pays.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('pays.index') }}"> Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Localite </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('localite.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('localite.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Centre de Vote National</span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('centrevote.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('centrevote.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau de vote National</span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('lieuvote.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('lieuvote.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Centre de Vote Etrangers </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('centrevotee.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('centrevotee.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau de vote Etrangers </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('lieuvotee.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('lieuvotee.index') }}">Lister</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Heure de collecte </span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ route('heure.create') }}"> Ajouter</a></li>
+                                        <li><a href="{{ route('heure.index') }}">Lister</a></li>
                                     </ul>
                                 </li>
 
-                            <li class="menu-title">Menu</li>
-                                <li>
-                                    <a href="{{ route('home') }}">
-                                    <i class="mdi mdi-airplay"></i> Configuration
-                                </a>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Candidat </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('candidat.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('candidat.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Region </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('region.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('region.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Departement </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('departement.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('departement.index') }}"> Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Arrondissement </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('arrondissement.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('arrondissement.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Commune </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('commune.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('commune.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collecteur </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('collecteur.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('collecteur.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Juridiction </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('juridiction.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('juridiction.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Pays </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('pays.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('pays.index') }}"> Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Localite </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('localite.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('localite.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Centre de Vote National</span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('centrevote.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('centrevote.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau de vote National</span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('lieuvote.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('lieuvote.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Centre de Vote Etrangers </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('centrevotee.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('centrevotee.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau de vote Etrangers </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('lieuvotee.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('lieuvotee.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Heure de collecte </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('heure.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('heure.index') }}">Lister</a></li>
-                                </ul>
+
                             </li>
 
+                            @endif
+                            @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet')
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('bureau.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('bureau.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            @endif
+                            @if( Auth::user()->role=='prefet')
+                            <li>
+                                <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
+                              
+                            </li>
+                            @endif
 
-                        </li>
-
-
-
+                            
 
                         </ul>
                     </div>

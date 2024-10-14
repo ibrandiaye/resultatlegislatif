@@ -7,6 +7,7 @@ use App\Models\Centrevote;
 use App\Repositories\CentrevoteRepository;
 use App\Repositories\CommuneRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
@@ -157,5 +158,11 @@ class CentrevoteController extends Controller
     public function sumElecteurByCentre($id){
         $electeurs = $this->centrevoteRepository->sumElecteurByCentre($id);
         return response()->json($electeurs);
+    }
+
+    public function getByArrondissement()
+    {
+        $centrevotes = $this->centrevoteRepository->getByArrondissement(Auth::user()->arrondissement_id);
+        return view("bureau.centrevote",compact("centrevotes"));
     }
 }

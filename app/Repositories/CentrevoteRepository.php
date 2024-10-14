@@ -49,5 +49,27 @@ public function getCentreTemoin($commune){
     ->get();
 }
 
+public function getByArrondissement($id){
+    return DB::table("centrevotes")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->select("centrevotes.*","communes.nom as commune")
+    ->where("communes.arrondissement_id",$id)
+    ->orderBy("communes.nom",'asc')
+    ->get();
+}
 
+    public function getBureauByCentre($id)
+    {
+        return Centrevote::with(["lieuvotes","lieuvotes.bureaus","commune"])
+        ->where("id",$id)
+        ->first();
+    }
+
+    public function countByArrondissement($id){
+        return DB::table("centrevotes")
+        ->join("communes","centrevotes.commune_id","=","communes.id")
+        ->select("centrevotes.*","communes.nom as commune")
+        ->where("communes.arrondissement_id",$id)
+        ->count();
+    }
 }

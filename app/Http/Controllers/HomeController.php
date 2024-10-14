@@ -6,6 +6,7 @@ use App\Repositories\CandidatRepository;
 use App\Repositories\CarteRepository;
 use App\Repositories\CentrevoteeRepository;
 use App\Repositories\CentrevoteRepository;
+use App\Repositories\CommuneRepository;
 use App\Repositories\DepartementRepository;
 use App\Repositories\LieuvoteeRepository;
 use App\Repositories\LieuvoteRepository;
@@ -19,6 +20,7 @@ use App\Repositories\RtslieuRepository;
 use App\Repositories\RtspaysRepository;
 use App\Repositories\RtstemoinRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -37,7 +39,7 @@ class HomeController extends Controller
     private $departementRepository;
     private $rtsPayrrepository;
     private $paysRepository;
-
+    private $communeRepository;
   
 
     public function __construct(CentrevoteRepository $centrevoteRepository,
@@ -46,7 +48,8 @@ class HomeController extends Controller
     CentrevoteeRepository $centrevoteeRepository,RtscentreeRepository $rtscentreeRepository, 
 RtslieueRepository $rtslieueRepository,LieuvoteeRepository $lieuvoteeRepository,ParticipationRepository $participationRepository,
 RtstemoinRepository $rtstemoinRepository,RtsdepartementRepository $rtsdepartementRepository,
-DepartementRepository $departementRepository,RtspaysRepository $rtspaysRepository,PaysRepository $paysRepository){
+DepartementRepository $departementRepository,RtspaysRepository $rtspaysRepository,PaysRepository $paysRepository,
+CommuneRepository $communeRepository){
         $this->centrevoteRepository = $centrevoteRepository;
         $this->rtscentreRepository = $rtscentreRepository;
         $this->rtslieuRepository = $rtslieuRepository;
@@ -64,52 +67,89 @@ DepartementRepository $departementRepository,RtspaysRepository $rtspaysRepositor
 
         $this->rtsPayrrepository = $rtspaysRepository;
         $this->paysRepository = $paysRepository;
+
+        $this->communeRepository  = $communeRepository;
     }
     public function index(){
-        $nbCentrevotes = $this->departementRepository->nbDepartements();
-        $nbRtsCentre = $this->departementRepository->nbDepartementBEtat(true);
-       // dd($nbCentrevotes);
-       $tauxDepouillement = round(($nbRtsCentre/$nbCentrevotes)*100,2);
-       $electeurs = $this->lieuvoteRepository->nbElecteurs();
-       $votants = $this->rtsDepartementRepository->nbVotants();
-       $votantDiaspores = $this->rtsPayrrepository->nbVotants();
-      // dd($votantDiaspores);    
-       $tauxDepouillementElecteurs = round(($votants/$electeurs)*100,2);
-
-       $rtsParCandidats = $this->rtsDepartementRepository->rtsByCandidat();
-       $rtsParCandidatDiasporas = $this->rtsPayrrepository->rtsByCandidat();
-      /*   $rtsNational=[];
-
-       foreach ($rtsParCandidats as $key => $value) {
-        
-       } */
-      $candidats = $this->candidatRepository->getAll();
-
-      $electeursDiaspora = $this->lieuvoteeRepository->nbElecteurs();
-      $nbureauDiaspora = $this->lieuvoteeRepository->nbLieuVotee();
-      $nCentreVote = $this->centrevoteeRepository->nbCentrevotee();
-
-      //Taux de particippation
-
-      $tauxDeParticipations = $this->participationRepository->getParticipationGroupByHeure();
-      $nbElecteursTemoin = $this->lieuvoteRepository->nbElecteursTemoin();
-      $rtsTemoins = $this->rtsTemoinRepository->rtsByCandidat();
-      $nbVotantTemoin = $this->rtsTemoinRepository->nbVotants();
-      //dd($rtsTemoins);
-      $nbVotantDiaspora = $this->rtsPayrrepository->nbVotants();
-      $nullNational = $this->departementRepository->nbNull();
-      $nullEtrangers = $this->paysRepository->nbNull();
-       foreach ($rtsParCandidats as $key => $value) {
-            foreach ($rtsParCandidatDiasporas as $k => $val) {
-                if($value->id ==$val->id){
-                    $rtsParCandidats[$key]->nb = $rtsParCandidats[$key]->nb + $val->nb;
+        $user = Auth::user();
+        if($user->role=="admin")
+        {
+            $nbCentrevotes = $this->departementRepository->nbDepartements();
+            $nbRtsCentre = $this->departementRepository->nbDepartementBEtat(true);
+           // dd($nbCentrevotes);
+           $tauxDepouillement = round(($nbRtsCentre/$nbCentrevotes)*100,2);
+           $electeurs = $this->lieuvoteRepository->nbElecteurs();
+           $votants = $this->rtsDepartementRepository->nbVotants();
+           $votantDiaspores = $this->rtsPayrrepository->nbVotants();
+          // dd($votantDiaspores);    
+           $tauxDepouillementElecteurs = round(($votants/$electeurs)*100,2);
+    
+           $rtsParCandidats = $this->rtsDepartementRepository->rtsByCandidat();
+           $rtsParCandidatDiasporas = $this->rtsPayrrepository->rtsByCandidat();
+          /*   $rtsNational=[];
+    
+           foreach ($rtsParCandidats as $key => $value) {
+            
+           } */
+          $candidats = $this->candidatRepository->getAll();
+    
+          $electeursDiaspora = $this->lieuvoteeRepository->nbElecteurs();
+          $nbureauDiaspora = $this->lieuvoteeRepository->nbLieuVotee();
+          $nCentreVote = $this->centrevoteeRepository->nbCentrevotee();
+    
+          //Taux de particippation
+    
+          $tauxDeParticipations = $this->participationRepository->getParticipationGroupByHeure();
+          $nbElecteursTemoin = $this->lieuvoteRepository->nbElecteursTemoin();
+          $rtsTemoins = $this->rtsTemoinRepository->rtsByCandidat();
+          $nbVotantTemoin = $this->rtsTemoinRepository->nbVotants();
+          //dd($rtsTemoins);
+          $nbVotantDiaspora = $this->rtsPayrrepository->nbVotants();
+          $nullNational = $this->departementRepository->nbNull();
+          $nullEtrangers = $this->paysRepository->nbNull();
+           foreach ($rtsParCandidats as $key => $value) {
+                foreach ($rtsParCandidatDiasporas as $k => $val) {
+                    if($value->id ==$val->id){
+                        $rtsParCandidats[$key]->nb = $rtsParCandidats[$key]->nb + $val->nb;
+                    }
+                }
+           }
+           return view("dashboardr",compact("nbCentrevotes","nbRtsCentre","electeurs",
+            "tauxDepouillement","votants","tauxDepouillementElecteurs","rtsParCandidats","nbVotantDiaspora",
+            "nbureauDiaspora","electeursDiaspora","nCentreVote","tauxDeParticipations",
+            "nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));
+        }
+        else
+        {
+            $nbCentreVote = $this->centrevoteRepository->countByArrondissement($user->arrondissement_id);
+            $nbLieuVote  = $this->lieuvoteRepository->countByArrondissementt($user->arrondissement_id);
+            $communes   = $this->communeRepository->getByArrondissment();
+            $complet   = 0;
+            $incomplete = 0;
+            $nonCommence  = 0;
+            foreach ($communes as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
                 }
             }
-       }
-       return view("dashboardr",compact("nbCentrevotes","nbRtsCentre","electeurs",
-    "tauxDepouillement","votants","tauxDepouillementElecteurs","rtsParCandidats","nbVotantDiaspora",
-"nbureauDiaspora","electeursDiaspora","nCentreVote","tauxDeParticipations",
-"nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));
+          //  dd($complet,$incomplete,$nonCommence);
+            return view("dashboardr",compact("nbCentreVote","nbLieuVote","incomplete","nonCommence",
+        "complet"));
+        }
+       
     }
     public function carteByDepartement($id,$nom){
 

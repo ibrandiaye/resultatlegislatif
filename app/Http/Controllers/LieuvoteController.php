@@ -182,4 +182,9 @@ class LieuvoteController extends Controller
         $electeurs = $this->lieuvoteRepository->sommeByDepartement($id);
         return response()->json($electeurs);
     }
+    public function getByCentrevotePrefer($id)
+    {
+        $lieuvotes = $this->lieuvoteRepository->getByCentreVote($id);   
+        return view("bureau.bureauvote",compact("lieuvotes"));
+    }
 }

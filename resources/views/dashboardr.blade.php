@@ -16,7 +16,8 @@
     </div>
     <div class="clearfix"></div>
 </div>
- <h4>Diaspora : {{ $electeursDiaspora }} inscrits</h4> 
+@if (Auth::user()->role=="admin")
+<h4>Diaspora : {{ $electeursDiaspora }} inscrits</h4> 
 <div class="row">
     
    
@@ -558,6 +559,138 @@
     </div>
     </div>  --}}
 </div>
+
+
+    
+@else
+    
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="search-type-arrow"></div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 align-self-center">
+                            <div class="round ">
+                                <i class="mdi mdi-cart"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center text-right">
+                            <div class="m-l-10 ">
+                                <h5 class="mt-0">{{ $nbCentreVote}}</h5>
+                                <p class="mb-0 text-muted">Nombre de centre de vote </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3" style="height:3px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div>
+       
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="search-type-arrow"></div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 align-self-center">
+                            <div class="round ">
+                                <i class="mdi mdi-cart"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center text-right">
+                            <div class="m-l-10 ">
+                                <h5 class="mt-0">{{ $nbLieuVote}}</h5>
+                                <p class="mb-0 text-muted">Nombre de bureau de vote </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3" style="height:3px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="search-type-arrow"></div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 align-self-center">
+                            <div class="round ">
+                                <i class="mdi mdi-cart"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center text-right">
+                            <div class="m-l-10 ">
+                                <h5 class="mt-0">{{ $complet}}</h5>
+                                <p class="mb-0 text-muted">Complete </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3" style="height:3px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div>
+       
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="search-type-arrow"></div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 align-self-center">
+                            <div class="round ">
+                                <i class="mdi mdi-cart"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center text-right">
+                            <div class="m-l-10 ">
+                                <h5 class="mt-0">{{ $incomplete}}</h5>
+                                <p class="mb-0 text-muted">Incomplete </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3" style="height:3px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="search-type-arrow"></div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 align-self-center">
+                            <div class="round ">
+                                <i class="mdi mdi-cart"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center text-right">
+                            <div class="m-l-10 ">
+                                <h5 class="mt-0">{{ $nonCommence}}</h5>
+                                <p class="mb-0 text-muted">Non Commencé </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3" style="height:3px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div>
+    </div>
+        
+@endif
+ 
 
 @endsection
 

@@ -15,5 +15,8 @@ class Lieuvote extends Model
     public function rtslieus(){
         return $this->hasMany(Rtslieu::class);
     }
+    public function bureaus(){
+        return $this->hasMany(Bureau::class);
+    }
 
 }

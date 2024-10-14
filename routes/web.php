@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArrondissementController;
+use App\Http\Controllers\BureauController;
 use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\CentrevoteController;
 use App\Http\Controllers\CentrevoteeController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\RtsDepartementontroller;
 use App\Http\Controllers\RtslieueController;
 use App\Http\Controllers\RtspaysController;
 use App\Http\Controllers\RtstemoinController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RtscentreController;
@@ -57,8 +59,12 @@ Route::resource('rtstemoin', RtstemoinController::class)->middleware("auth");
 Route::resource('rtspays', RtspaysController::class)->middleware("auth");
 Route::resource('rtscommune', RtsCommuneController::class)->middleware("auth");
 Route::resource('rtsdepartement', RtsDepartementontroller::class)->middleware("auth");
+Route::resource('user', controller: UserController::class)->middleware("auth");
+Route::resource('bureau', controller: BureauController::class)->middleware("auth");
 
 Route::get('/participation/by/heure/{heure}',[ParticipationController::class,'getParticipationByHeure'])->name("participation.heure")->middleware("auth");
+
+Route::post('/update/password',[UserController::class,'updatePassword'])->name("user.password.update")->middleware(["auth"]);
 
 
 Route::post('/importer/region',[RegionController::class,'importExcel'])->name("importer.region")->middleware("auth");
@@ -128,3 +134,11 @@ Route::get('/somme/electeur/by/commune/{commune}',[LieuvoteController::class,'su
 
 Route::get('/somme/electeur/by/departement/{departement}',[LieuvoteController::class,'sumElecteurByDepartement']);
 Route::get('/stat/nb',[HomeController::class,'nbVoteStat'])->name('nbVoteStat')->middleware("auth");
+
+Route::get('/doc/bureau/{id}',[BureauController::class,'docParBureau'])->name('doc.bureau')->middleware("auth");
+
+Route::get('/centrevote/by/arrondissement',[CentrevoteController::class,'getByArrondissement'])->name('centre.by.arrondissement')->middleware("auth");
+
+Route::get('/bureau/by/centrevote/{id}',[LieuvoteController::class,'getByCentrevotePrefer'])->name('lieu.vote.by.centre')->middleware("auth");
+
+Route::get('/doc/centrevote/{id}',[BureauController::class,'docParCentre'])->name('doc.centre')->middleware("auth");

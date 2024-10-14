@@ -24,6 +24,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'arrondissement_id',
+        'tel'
     ];
 
     /**
@@ -44,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function arrondissement()
+    {
+        return $this->belongsTo(Arrondissement::class);
+    }
 }

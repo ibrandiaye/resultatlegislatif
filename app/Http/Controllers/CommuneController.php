@@ -90,7 +90,8 @@ class CommuneController extends Controller
     {
         $departements = $this->departementRepository->getAll();
         $commune = $this->communeRepository->getById($id);
-        return view('commune.edit',compact('commune','departements'));
+        $arrondissements = $this->arrondissementRepository->getAll();
+        return view('commune.edit',compact('commune','departements',"arrondissements"));
     }
 
     /**

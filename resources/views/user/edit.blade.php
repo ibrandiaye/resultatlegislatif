@@ -1,31 +1,30 @@
 {{-- \resources\views\permissions\create.blade.php --}}
 @extends('welcome')
 
-@section('title', '| Modifier Région')
+@section('title', '| Modifier Département')
 
 @section('content')
-
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
             <div class="btn-group float-right">
-
                         <ol class="breadcrumb hide-phone p-0 m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}" role="button" class="btn btn-primary">ACCUEIL</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('commune.index') }}" role="button" class="btn btn-primary">RETOUR</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">ACCUEIL</a></li>
+                        
 
                         </ol>
-
                     </div>
-                    <h4 class="page-title">Starter</h4>
+                     DGE
+                   
                 </div>
             </div>
             <div class="clearfix"></div>
         </div>
-        {!! Form::model($commune, ['method'=>'PATCH','route'=>['commune.update', $commune->id],'enctype'=>'multipart/form-data']) !!}
+
+        {!! Form::model($user, ['method'=>'PATCH','route'=>['user.update', $user->id]]) !!}
             @csrf
              <div class="card ">
-                        <div class="card-header text-center">FORMULAIRE DE MODIFICATION D'une Commune</div>
+                        <div class="card-header text-center">FORMULAIRE DE MODIFICATION Département</div>
                             <div class="card-body">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -40,28 +39,32 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Nom</label>
-                                    <input type="text" name="nom" class="form-control" value="{{$commune->nom}}"   required>
+                                    <input type="text" name="name" class="form-control" value="{{$user->name}}"   required>
                                     </div>
 
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>email </label>
+                                        <input type="email" name="email"  value=" {{$user->email }}" class="form-control"required>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Arrondissement</label>
                                     <select class="form-control" name="arrondissement_id" required="">
                                         @foreach ($arrondissements as $arrondissement)
-                                        <option {{old('arrondissement_id', $commune->arrondissement_id) == $arrondissement->id ? 'selected' : ''}}
+                                        <option {{old('arrondissement_id', $user->arrondissement_id) == $arrondissement->id ? 'selected' : ''}}
                                             value="{{$arrondissement->id}}">{{$arrondissement->nom}}</option>
                                             @endforeach
 
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label>Département</label>
-                                    <select class="form-control" name="departement_id" required="">
-                                        @foreach ($departements as $departement)
-                                        <option {{old('departement_id', $commune->departement_id) == $departement->id ? 'selected' : ''}}
-                                            value="{{$departement->id}}">{{$departement->nom}}</option>
-                                            @endforeach
-
+                                    <label>Role</label>
+                                    <select class="form-control" name="role" required="">
+                                        <option value="">Selectionner</option>
+                                        <option value="admin" {{$user->role=="admin" ? 'selected' : ''}}>Admin</option>
+                                        <option value="prefet"  {{$user->role=="prefet" ? 'selected' : ''}}>Prefet</option> 
                                     </select>
                                 </div>
 
@@ -75,6 +78,5 @@
                             </div>
                         </div>
     {!! Form::close() !!}
-
 
 @endsection

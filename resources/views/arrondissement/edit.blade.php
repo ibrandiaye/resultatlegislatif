@@ -44,6 +44,7 @@
                                     </div>
 
                                 </div>
+                               
                                 <div class="col-lg-6">
                                     <label>Département</label>
                                     <select class="form-control" name="departement_id" required="">

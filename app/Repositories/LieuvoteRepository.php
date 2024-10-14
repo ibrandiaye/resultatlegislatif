@@ -140,4 +140,20 @@ public function sommeByDepartement($id){
     ->where("departements.id",$id)
     ->sum("lieuvotes.nb");
 }
+public function getByCentreVote($id)
+{
+    return Lieuvote::with(["centrevote","centrevote.commune","bureaus"])
+    ->where("centrevote_id",$id)
+    ->get();
+}
+
+public function countByArrondissementt($id){
+   
+    return DB::table("lieuvotes")
+    ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->where("communes.arrondissement_id",$id)
+    ->count();
+}
+
 }
