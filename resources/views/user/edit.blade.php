@@ -35,38 +35,42 @@
                                         </ul>
                                     </div>
                                 @endif
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Nom</label>
-                                    <input type="text" name="name" class="form-control" value="{{$user->name}}"   required>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Nom</label>
+                                        <input type="text" name="name" class="form-control" value="{{$user->name}}"   required>
+                                        </div>
+    
                                     </div>
-
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>email </label>
-                                        <input type="email" name="email"  value=" {{$user->email }}" class="form-control"required>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>email </label>
+                                            <input type="email" name="email"  value=" {{$user->email }}" class="form-control"required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Arrondissement</label>
+                                        <select class="form-control" name="arrondissement_id" >
+                                            @foreach ($arrondissements as $arrondissement)
+                                            <option {{old('arrondissement_id', $user->arrondissement_id) == $arrondissement->id ? 'selected' : ''}}
+                                                value="{{$arrondissement->id}}">{{$arrondissement->nom}}</option>
+                                                @endforeach
+    
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Role</label>
+                                        <select class="form-control" name="role" required="">
+                                            <option value="">Selectionner</option>
+                                            <option value="admin" {{$user->role=="admin" ? 'selected' : ''}}>Admin</option>
+                                            <option value="sous_prefet"  {{$user->role=="sous_prefet" ? 'selected' : ''}}>Sous Prefet</option> 
+                                            <option value="prefet"  {{$user->role=="prefet" ? 'selected' : ''}}>Prefet</option> 
+                                            <option value="gouverneur"  {{$user->role=="gouverneur" ? 'selected' : ''}}>Gouverneur</option> 
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <label>Arrondissement</label>
-                                    <select class="form-control" name="arrondissement_id" required="">
-                                        @foreach ($arrondissements as $arrondissement)
-                                        <option {{old('arrondissement_id', $user->arrondissement_id) == $arrondissement->id ? 'selected' : ''}}
-                                            value="{{$arrondissement->id}}">{{$arrondissement->nom}}</option>
-                                            @endforeach
-
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Role</label>
-                                    <select class="form-control" name="role" required="">
-                                        <option value="">Selectionner</option>
-                                        <option value="admin" {{$user->role=="admin" ? 'selected' : ''}}>Admin</option>
-                                        <option value="prefet"  {{$user->role=="prefet" ? 'selected' : ''}}>Prefet</option> 
-                                    </select>
-                                </div>
+                               
 
                                 <div>
                                     <center>
@@ -79,4 +83,59 @@
                         </div>
     {!! Form::close() !!}
 
+@endsection
+
+@section('script')
+<script>
+    $("#region_id").change(function () {
+    var region_id =  $("#region_id").children("option:selected").val();
+   // $(".region").val(region_id);
+   // $(".departement").val("");
+    $(".commune").val("");
+    $("#departement_id").empty();
+    $("#commune_id").empty();
+        var departement = "<option value=''>Veuillez selectionner</option>";
+        $.ajax({
+            type:'GET',
+            url:'/departement/by/region/'+region_id,
+            data:'_token = <?php echo csrf_token() ?>',
+            success:function(data) {
+
+                $.each(data,function(index,row){
+                    //alert(row.nomd);
+                    departement +="<option value="+row.id+">"+row.nom+"</option>";
+
+                });
+               
+                $("#departement_id").append(departement);
+            }
+        });
+    });
+    $("#departement_id").change(function () {
+        var departement_id =  $("#departement_id").children("option:selected").val();
+      //  $(".departement").val(departement_id);
+       // $(".commune").val("");
+       $("#arrondissement_id").empty();
+            var arrondissement = "<option value=''>Veuillez selectionner</option>";
+            $.ajax({
+                type:'GET',
+                url:'/arrondissement/by/departement/'+departement_id,
+                data:'_token = <?php echo csrf_token() ?>',
+                success:function(data) {
+
+                    $.each(data,function(index,row){
+                        //alert(row.nomd);
+                        arrondissement +="<option value="+row.id+">"+row.nom+"</option>";
+
+                    });
+                   
+                    $("#arrondissement_id").append(arrondissement);
+                }
+            });
+        });
+         
+              
+
+
+</script>
 @endsection

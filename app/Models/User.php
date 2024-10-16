@@ -26,7 +26,9 @@ class User extends Authenticatable
         'password',
         'role',
         'arrondissement_id',
-        'tel'
+        'tel',
+        'departement_id',
+        'region_id'
     ];
 
     /**
@@ -51,5 +53,14 @@ class User extends Authenticatable
     public function arrondissement()
     {
         return $this->belongsTo(Arrondissement::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class);
     }
 }

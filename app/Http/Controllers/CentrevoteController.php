@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Imports\CentrevoteImport;
 use App\Models\Centrevote;
+use App\Repositories\ArrondissementRepository;
 use App\Repositories\CentrevoteRepository;
 use App\Repositories\CommuneRepository;
+use App\Repositories\DepartementRepository;
+use App\Repositories\LieuvoteRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,10 +18,18 @@ class CentrevoteController extends Controller
 {
     protected $centrevoteRepository;
     protected $communeRepository;
+    protected $arrondissementRepository;
+    protected $departementRepository;
+    protected $lieuvoteRepository;
 
-    public function __construct(CentrevoteRepository $centrevoteRepository, CommuneRepository $communeRepository){
-        $this->centrevoteRepository =$centrevoteRepository;
-        $this->communeRepository = $communeRepository;
+    public function __construct(CentrevoteRepository $centrevoteRepository, CommuneRepository $communeRepository,
+    ArrondissementRepository $arrondissementRepository, DepartementRepository $departementRepository,
+   LieuvoteRepository $lieuvoteRepository){
+        $this->centrevoteRepository         =   $centrevoteRepository;
+        $this->communeRepository            = $communeRepository;
+        $this->arrondissementRepository     = $arrondissementRepository;
+        $this->departementRepository        = $departementRepository;
+        $this->lieuvoteRepository           = $lieuvoteRepository;
     }
 
     /**
@@ -162,7 +173,162 @@ class CentrevoteController extends Controller
 
     public function getByArrondissement()
     {
+       
         $centrevotes = $this->centrevoteRepository->getByArrondissement(Auth::user()->arrondissement_id);
-        return view("bureau.centrevote",compact("centrevotes"));
+        $communes    = $this->communeRepository->getByArrondissement(Auth::user()->arrondissement_id);
+        $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt(Auth::user()->arrondissement_id);
+        $nbCentreVote   = $this->centrevoteRepository->countByArrondissement(Auth::user()->arrondissement_id);
+        $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement(Auth::user()->arrondissement_id);
+        return view("bureau.centrevote_arrondissement",compact("centrevotes","communes","nbBureauVote",
+        "nbCentreVote","nbElecteur"));
     }
+    public function getByDepartement()
+    {
+       // dd("ok");
+        $communes = [];
+        $commune_id = "";
+        $arrondissement_id = "";
+        $arrondissements = $this->arrondissementRepository->getByDepartement(Auth::user()->departement_id);
+        $centrevotes = $this->centrevoteRepository->getByDepartement(Auth::user()->departement_id);
+        $nbBureauVote  = $this->lieuvoteRepository->countByDepartement(Auth::user()->departement_id);
+        $nbCentreVote   = $this->centrevoteRepository->countByDepartement(Auth::user()->departement_id);
+        $nbElecteur   = $this->lieuvoteRepository->sommeByDepartement(Auth::user()->departement_id);
+        return view("bureau.centrevote_departement",compact("centrevotes","arrondissements","nbBureauVote",
+    "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id"));
+    }
+    public function getByRegion()
+    {
+         // dd("ok");
+         $communes = [];
+         $commune_id = "";
+         $arrondissement_id = "";
+         $arrondissements = [];
+         $departement_id = "";
+        $centrevotes = $this->centrevoteRepository->getByRegion(Auth::user()->region_id);
+        $departements = $this->departementRepository->getByRegion(Auth::user()->region_id);
+        $nbBureauVote  = $this->lieuvoteRepository->countByRegion(Auth::user()->region_id);
+        $nbCentreVote   = $this->centrevoteRepository->countByRegion(Auth::user()->region_id);
+        $nbElecteur   = $this->lieuvoteRepository->sumByRegion(Auth::user()->region_id);
+        return view("bureau.centrevote_region",compact("centrevotes","departements","nbBureauVote",
+        "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id","departement_id","arrondissements"));
+    }
+
+    public function centreByLocalite()
+    {
+        if(Auth::user()->role=="sous_prefet")
+        {
+            return   $this->getByArrondissement();
+        }
+        elseif(Auth::user()->role=="prefet")
+        {
+            return  $this->getByDepartement();
+        }
+        elseif(Auth::user()->role=="gouverneur")
+        {
+            return  $this->getByRegion();
+        }
+    }
+
+    public function searhArrondissement(Request $request)
+    {
+        if($request->centrevote_id)
+        {
+            return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
+        }
+        elseif($request->commune_id)
+        {
+            $centrevotes = $this->centrevoteRepository->getByCommune($request->commune_id);
+            $communes    = $this->communeRepository->getByArrondissement(Auth::user()->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            return view("bureau.centrevote_arrondissement",compact("centrevotes","communes","nbBureauVote",
+            "nbCentreVote","nbElecteur"));
+        }
+
+    }
+
+    public function searhDepartement(Request $request)
+    {
+        $commune_id = $request->commune_id;
+        $arrondissement_id = $request->arrondissement_id;
+        if($request->centrevote_id)
+        {
+            return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
+        }
+        elseif($request->commune_id)
+        {
+            $arrondissements = $this->arrondissementRepository->getByDepartement(Auth::user()->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByCommune($request->commune_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            return view("bureau.centrevote_departement",compact("centrevotes","communes","arrondissements","nbBureauVote",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id"));
+        }
+        else if($request->arrondissement_id)
+        {
+            $arrondissements = $this->arrondissementRepository->getByDepartement(Auth::user()->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByArrondissement($request->arrondissement_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt($request->arrondissement_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByArrondissement($request->arrondissement_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement($request->arrondissement_id);
+            return view("bureau.centrevote_departement",compact("centrevotes","communes","nbBureauVote","arrondissements",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id"));
+        }
+
+
+    }
+    public function searhRegion(Request $request)
+    {
+        $commune_id = $request->commune_id;
+        $arrondissement_id = $request->arrondissement_id;
+        $departement_id = $request->departement_id;
+        if($request->centrevote_id)
+        {
+            return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
+        }
+        elseif($request->commune_id)
+        {
+            $departements = $this->departementRepository->getByRegion(Auth::user()->region_id);
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByCommune($request->commune_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            return view("bureau.centrevote_region",compact("centrevotes","communes","arrondissements","nbBureauVote",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements"));
+        }
+        elseif($request->arrondissement_id)
+        {
+            $departements = $this->departementRepository->getByRegion(Auth::user()->region_id);
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByArrondissement($request->arrondissement_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt($request->arrondissement_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByArrondissement($request->arrondissement_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement($request->arrondissement_id);
+            return view("bureau.centrevote_region",compact("centrevotes","communes","nbBureauVote","arrondissements",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements"));
+        }
+        elseif($request->departement_id)
+        {
+        
+            $communes = [];
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $departements = $this->departementRepository->getByRegion(Auth::user()->region_id);
+            $centrevotes = $this->centrevoteRepository->getByDepartement($request->departement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByDepartement($request->departement_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByDepartement($request->departement_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByDepartements($request->departement_id);
+            return view("bureau.centrevote_region",compact("centrevotes","departements","nbBureauVote",
+            "nbCentreVote","nbElecteur","departement_id","departements","commune_id","arrondissement_id","arrondissements","communes"));
+        }
+
+
+    }
+    
 }

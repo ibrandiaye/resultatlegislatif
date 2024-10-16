@@ -95,6 +95,10 @@ Route::get('/departement/by/region/{region}',[DepartementController::class,'getB
 Route::get('/commune/by/departement/{departement}',[CommuneController::class,'getByDepartement']);
 Route::get('/centrevote/by/commune/{commune}',[CentrevoteController::class,'getBycommune']);
 Route::get('/lieuvote/by/centrevote/{centrevote}',[LieuvoteController::class,'getByCentreVote']);
+Route::get('/commune/by/arrondissement/{arrondissement}',[CommuneController::class,'getByArrondissement']);
+
+
+Route::get('/arrondissement/by/departement/{departement}',[ArrondissementController::class,'byDepartement'])->name("arrondissement.by.departement");
 
 
 Route::resource('juridiction', JuridictionController::class)->middleware("auth");
@@ -143,8 +147,16 @@ Route::get('/stat/nb',[HomeController::class,'nbVoteStat'])->name('nbVoteStat')-
 
 Route::get('/doc/bureau/{id}',[BureauController::class,'docParBureau'])->name('doc.bureau')->middleware("auth");
 
-Route::get('/centrevote/by/arrondissement',[CentrevoteController::class,'getByArrondissement'])->name('centre.by.arrondissement')->middleware("auth");
+Route::get('/centrevote/by/arrondissement',[CentrevoteController::class,'centreByLocalite'])->name('centre.by.arrondissement')->middleware("auth");
 
 Route::get('/bureau/by/centrevote/{id}',[LieuvoteController::class,'getByCentrevotePrefer'])->name('lieu.vote.by.centre')->middleware("auth");
 
 Route::get('/doc/centrevote/{id}',[BureauController::class,'docParCentre'])->name('doc.centre')->middleware("auth");
+
+
+
+Route::post('/searh-arrondissement',[CentrevoteController::class,'searhArrondissement'])->name("searhArrondissement")->middleware("auth");
+
+Route::post('/searh-departement',[CentrevoteController::class,'searhDepartement'])->name("searhDepartement")->middleware("auth");
+Route::post('/searh-region',[CentrevoteController::class,'searhRegion'])->name("searhRegion")->middleware("auth");
+

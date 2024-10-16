@@ -36,6 +36,11 @@
                                         </ul>
                                     </div>
                                 @endif
+                                @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
 
                             <div class="row">
 
@@ -57,6 +62,12 @@
                                     <div class="form-group">
                                         <label>Numéro Tel </label>
                                         <input type="number" name="tel"  value="{{ $bureau->tel }}" class="form-control"  required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Cni </label>
+                                        <input type="text"  name="cni"  value="{{ $bureau->cni }}" class="form-control"  >
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

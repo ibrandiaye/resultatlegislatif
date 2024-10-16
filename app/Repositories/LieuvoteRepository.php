@@ -79,7 +79,7 @@ public function sumByDepartements($departements){
     return DB::table("lieuvotes")
     ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
     ->join("communes","centrevotes.commune_id","=","communes.id")
-    ->join("departements","communes.departements_id","=","departements.id")
+    ->join("departements","communes.departement_id","=","departements.id")
     ->where("departements.id",$departements)
     ->sum("lieuvotes.nb");;
 }
@@ -89,6 +89,13 @@ public function sumByCommune($communes){
     ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
     ->join("communes","centrevotes.commune_id","=","communes.id")
     ->where("communes.id",$communes)
+    ->sum("lieuvotes.nb");;
+}
+public function sumByArrondissement($arrondissement){
+    return DB::table("lieuvotes")
+    ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->where("communes.arrondissement_id",$arrondissement)
     ->sum("lieuvotes.nb");;
 }
 public function sumElecteurByCentrevote($centrevote){
@@ -153,6 +160,33 @@ public function countByArrondissementt($id){
     ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
     ->join("communes","centrevotes.commune_id","=","communes.id")
     ->where("communes.arrondissement_id",$id)
+    ->count();
+}
+public function countByCommune($id){
+   
+    return DB::table("lieuvotes")
+    ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->where("communes.id",$id)
+    ->count();
+}
+
+public function countByDepartement($id){
+   
+    return DB::table("lieuvotes")
+    ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->where("communes.departement_id",$id)
+    ->count();
+}
+
+public function countByRegion($id){
+   
+    return DB::table("lieuvotes")
+    ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->join("departements","communes.departement_id","=","departements.id")
+    ->where("departements.region_id",$id)
     ->count();
 }
 

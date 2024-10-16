@@ -22,6 +22,10 @@ class CentrevoteRepository extends RessourceRepository{
     }
     public function getByCommune($commune){
         return DB::table("centrevotes")
+        ->join("communes","centrevotes.commune_id","=","communes.id")
+        ->join("arrondissements","communes.arrondissement_id","=","arrondissements.id")
+        ->join("departements","arrondissements.departement_id","=","departements.id")
+        ->select("centrevotes.*","communes.nom as commune","arrondissements.nom as arrondissement","departements.nom as departement")
         ->where([["commune_id",$commune],["niveau",false]])
         ->orderBy("nom","asc")
         ->get();
@@ -52,8 +56,31 @@ public function getCentreTemoin($commune){
 public function getByArrondissement($id){
     return DB::table("centrevotes")
     ->join("communes","centrevotes.commune_id","=","communes.id")
-    ->select("centrevotes.*","communes.nom as commune")
+    ->join("arrondissements","communes.arrondissement_id","=","arrondissements.id")
+    ->join("departements","arrondissements.departement_id","=","departements.id")
+    ->select("centrevotes.*","communes.nom as commune","arrondissements.nom as arrondissement","departements.nom as departement")
     ->where("communes.arrondissement_id",$id)
+    ->orderBy("communes.nom",'asc')
+    ->get();
+}
+
+public function getByDepartement($id){
+    return DB::table("centrevotes")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->join("arrondissements","communes.arrondissement_id","=","arrondissements.id")
+    ->join("departements","arrondissements.departement_id","=","departements.id")
+    ->select("centrevotes.*","communes.nom as commune","arrondissements.nom as arrondissement","departements.nom as departement")
+    ->where("arrondissements.departement_id",$id)
+    ->orderBy("communes.nom",'asc')
+    ->get();
+}
+public function getByRegion($id){
+    return DB::table("centrevotes")
+    ->join("communes","centrevotes.commune_id","=","communes.id")
+    ->join("arrondissements","communes.arrondissement_id","=","arrondissements.id")
+    ->join("departements","arrondissements.departement_id","=","departements.id")
+    ->select("centrevotes.*","communes.nom as commune","arrondissements.nom as arrondissement","departements.nom as departement")
+    ->where("departements.region_id",$id)
     ->orderBy("communes.nom",'asc')
     ->get();
 }
@@ -65,11 +92,34 @@ public function getByArrondissement($id){
         ->first();
     }
 
+    public function countByCommune($id){
+        return DB::table("centrevotes")
+        //->join("communes","centrevotes.commune_id","=","communes.id")
+       // ->select("centrevotes.*","communes.nom as commune")
+        ->where("centrevotes.commune_id",$id)
+        ->count();
+    }
     public function countByArrondissement($id){
         return DB::table("centrevotes")
         ->join("communes","centrevotes.commune_id","=","communes.id")
-        ->select("centrevotes.*","communes.nom as commune")
+       // ->select("centrevotes.*","communes.nom as commune")
         ->where("communes.arrondissement_id",$id)
+        ->count();
+    }
+    public function countByDepartement($id){
+        return DB::table("centrevotes")
+        ->join("communes","centrevotes.commune_id","=","communes.id")
+      //  ->select("centrevotes.*","communes.nom as commune")
+        ->where("communes.departement_id",$id)
+        ->count();
+    }
+    public function countByRegion($id){
+        return DB::table("centrevotes")
+        ->join("communes","centrevotes.commune_id","=","communes.id")
+        ->join("departements","communes.departement_id","=","departements.id")
+
+     //   ->select("centrevotes.*","communes.nom as commune")
+        ->where("departements.region_id",$id)
         ->count();
     }
 }

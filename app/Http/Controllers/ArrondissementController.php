@@ -167,4 +167,9 @@ class ArrondissementController extends Controller
         $arrondissements = $this->arrondissementRepository->getArrondissementByNom($_GET['q']);
         return response()->json($arrondissements);
     } */
+
+    public function getByDepartement($departement)
+    {
+        
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Repositories\ArrondissementRepository;
+use App\Repositories\RegionRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,13 @@ class UserController extends Controller
 {
     protected $userRepository;
     protected $arrondissementRepository;
+    protected $regionRepository;
 
-    public function __construct(UserRepository $userRepository, ArrondissementRepository $arrondissementRepository){
+    public function __construct(UserRepository $userRepository, ArrondissementRepository $arrondissementRepository,
+    RegionRepository $regionRepository){
         $this->userRepository =$userRepository;
         $this->arrondissementRepository = $arrondissementRepository;
+        $this->regionRepository  = $regionRepository;
     }
 
     /**
@@ -38,7 +42,8 @@ class UserController extends Controller
     public function create()
     {
         $arrondissements = $this->arrondissementRepository->getAll();
-        return view('user.add',compact('arrondissements'));
+        $regions         = $this->regionRepository->getAll();
+        return view('user.add',compact(/*'arrondissements',*/"regions"));
     }
 
     /**
@@ -72,7 +77,9 @@ class UserController extends Controller
             'tel' => $request['tel'],
             'password' => Hash::make($request['password']),
             'role'=>$request['role'],
-            'arrondissement_id'=>$request['arrondissement_id']
+            'arrondissement_id'=>$request['arrondissement_id'],
+            'departement_id'=>$request['departement_id'],
+            'region_id'=>$request['region_id']
         ]);
         return redirect('user');
 

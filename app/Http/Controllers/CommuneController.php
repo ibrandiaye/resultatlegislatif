@@ -196,4 +196,9 @@ class CommuneController extends Controller
         return response()->json($communes);
     }
 
+    public function getByArrondissement($arrondissement){
+        $communes = $this->communeRepository->getByArrondissement($arrondissement);
+        return response()->json($communes);
+    }
+
 }

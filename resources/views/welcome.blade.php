@@ -259,7 +259,7 @@
                                 </ul>
                             </li> --}}
                             @endif
-                            @if( Auth::user()->role=='prefet')
+                            @if( Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
                             <li>
                                 <a href="{{ route('home') }}">
                                 <i class="mdi mdi-clock"></i> Tableau de bords

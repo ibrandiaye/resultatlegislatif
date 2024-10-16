@@ -35,7 +35,17 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <div class="row">
+                               {{--  @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                </div>
+                            @endif --}}
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                                                            <div class="row">
 
 
                                     <input  type="hidden" name="commune_id" value="{{ $commune_id }}">
@@ -60,6 +70,12 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
+                                            <label>Cni </label>
+                                            <input type="text" data-parsley-maxlength="13" data-parsley-mleinngth="12" name="cni"  value="{{ old('cni') }}" class="form-control"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
                                             <label>Fonction </label>
                                             <select class="form-control" id="fonction" name="fonction" required>
                                                 <option value="">Selectionner</option>
@@ -78,6 +94,7 @@
                                     </div>
 
                                 </div>
+
                                 <input type="hidden" id="nb_electeur" name="nb_electeur">
                                 <div>
                                     <center>

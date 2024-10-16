@@ -65,6 +65,11 @@ class BureauController extends Controller
     {
         $lieuvote_id = $id;
         $commune_id  = $commune;
+        $bureaus = $this->bureauRepository->getByLieuVote($id);
+        if(count($bureaus) >=3)
+        {
+            return redirect()->back()->with("error","Vous avez déja atteind les trois membre");
+        }
         return view('bureau.add_lieuvote',compact('lieuvote_id','commune_id'));
     }
 
@@ -80,22 +85,37 @@ class BureauController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'fonction' => 'required|string',
-            'tel' => 'required|string',
+            'tel' => 'required|unique:bureaus,tel|string|min:9|max:9',
+            'cni' => 'unique:bureaus,cni|string|min:12|max:13',
 
             //'g-recaptcha-response' => 'required|captcha',
             ], [
                 'tel.unique' => 'Cette personne est déjà affecté.',
+                'cni.min' => 'la taille du cni doit être au minimun 12 caractères.',
+                'cni.max' => 'la taille du cni  doit être au maximun 13 caractères.',
+                'tel.min' => 'la taille du tel doit être au minimun 9 caractères.',
+                'tel.max' => 'la taille du tel doit être au maximum 9 caractères.',
+                'cni.unique' => 'le numero cni est déjà affecté.',
 
             ]);
             $bureaus = $this->bureauRepository->getByLieuVote($request->lieuvote_id);
+            if(count($bureaus) >=3)
+            {
+                return redirect()->back()->withErrors("Vous avez déja atteind les trois membre")->withInput();
+            }
             foreach ($bureaus as $key => $value) {
+
                  if($value->fonction==$request->fonction)
                  {
                     return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction)->withInput();
                  }
             }
-        $bureaus = $this->bureauRepository->store($request->all());
-        return redirect('bureau');
+        $bureau = $this->bureauRepository->store($request->all());
+        if(count($bureaus) ==2)
+        {
+            return redirect()->back()->withErrors("Vous avez terminer pour cette Bureau de vote")->withInput();
+        }
+        return redirect()->back()->withInput()->with("success","enregistrement avec succès");
 
     }
 
@@ -133,8 +153,10 @@ class BureauController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->bureauRepository->update($id, $request->all());
-        return redirect('bureau');
+       // return redirect('bureau');
+       return redirect()->back()->withInput()->with("success","modification avec succès");
     }
 
     /**
