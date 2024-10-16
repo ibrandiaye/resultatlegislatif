@@ -95,7 +95,7 @@ class BureauController extends Controller
                 'cni.unique' => 'le numero cni est déjà affecté.',
 
             ]);
-            $bureaus = $this->bureauRepository->getByLieuVote($request->lieuvote_id);
+            $bureaus = $this->bureauRepository->getByLieuVoteOnly($request->lieuvote_id);
             if(count($bureaus) >=3)
             {
                 return redirect()->back()->withErrors("Vous avez déja atteind les trois membre");
@@ -104,7 +104,7 @@ class BureauController extends Controller
 
                  if($value->fonction==$request->fonction)
                  {
-                    return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction);
+                    return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction)->withInput();
                  }
             }
         $bureau = $this->bureauRepository->store($request->all());

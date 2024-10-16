@@ -74,9 +74,9 @@
                                             <label>Fonction </label>
                                             <select class="form-control" id="fonction" name="fonction" required>
                                                 <option value="">Selectionner</option>
-                                                <option value="president" {{old('fonction')=='president' ? 'selected' : ''}}>Président</option>
-                                                <option value="asceseur" {{old('fonction')=='asceseur' ? 'selected' : ''}}>Asceseur</option>
-                                                <option value="secretaire" {{old('fonction')=='secretaire' ? 'selected' : ''}}>Secretaire </option>
+                                                <option value="president">Président</option>
+                                                <option value="asceseur" >Asceseur</option>
+                                                <option value="secretaire" >Secretaire </option>
 
                                             </select>
                                         </div>

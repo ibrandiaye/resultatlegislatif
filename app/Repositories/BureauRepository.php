@@ -32,6 +32,13 @@ class BureauRepository extends RessourceRepository{
         ->where("lieuvotes.id",$id)
         ->get();
     }
+    public function getByLieuVoteOnly($id)
+    {
+        return DB::table("bureaus")
+      
+        ->where("lieuvote_id",$id)
+        ->get();
+    }
     public function getByBureauVote($id)
     {
         return DB::table("bureaus")
