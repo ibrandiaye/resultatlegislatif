@@ -125,7 +125,7 @@
 @endsection
 @section('script')
 <script>
-
+ url_app = '{{ config('app.url') }}';
     $("#departement_id").change(function () {
         var departement_id =  $("#departement_id").children("option:selected").val();
       //  $(".departement").val(departement_id);
@@ -135,7 +135,7 @@
             var arrondissement = "<option value=''>Veuillez selectionner</option>";
             $.ajax({
                 type:'GET',
-                url:'/arrondissement/by/departement/'+departement_id,
+                url:url_app+'/arrondissement/by/departement/'+departement_id,
                 data:'_token = <?php echo csrf_token() ?>',
                 success:function(data) {
 
@@ -159,7 +159,7 @@
             var commune = "<option value=''>Veuillez selectionner</option>";
             $.ajax({
                 type:'GET',
-                url:'/commune/by/arrondissement/'+arrondissement_id,
+                url:url_app+'/commune/by/arrondissement/'+arrondissement_id,
                 data:'_token = <?php echo csrf_token() ?>',
                 success:function(data) {
 
@@ -180,7 +180,7 @@
                 $("#centrevote_id").empty();
                 $.ajax({
                     type:'GET',
-                    url:'/centrevote/by/commune/'+commune_id,
+                    url:url_app+'/centrevote/by/commune/'+commune_id,
              
                     vdata:'_token = <?php echo csrf_token() ?>',
                     success:function(data) {
@@ -201,7 +201,7 @@
                     var lieuvote = "<option value=''>Veuillez selectionner</option>";
                     $.ajax({
                         type:'GET',
-                        url:'/lieuvote/by/centrevote/'+centrevote_id,
+                        url:url_app+'/lieuvote/by/centrevote/'+centrevote_id,
                         vdata:'_token = <?php echo csrf_token() ?>',
                         success:function(data) {
 

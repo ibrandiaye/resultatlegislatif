@@ -117,16 +117,16 @@
 @endsection
 @section('script')
 <script>
-   
+    url_app = '{{ config('app.url') }}';
    
         $("#commune_id").change(function () {
             var commune_id =  $("#commune_id").children("option:selected").val();
                 var centrevote = "<option value=''>Veuillez selectionner</option>";
                 $.ajax({
                     type:'GET',
-                    url:'/centrevote/by/commune/'+commune_id,
+                    url:url_app+'/centrevote/by/commune/'+commune_id,
                
-                    vdata:'_token = <?php echo csrf_token() ?>',
+                    data:'_token = <?php echo csrf_token() ?>',
                     success:function(data) {
 
                         $.each(data,function(index,row){
@@ -145,8 +145,8 @@
                     var lieuvote = "<option value=''>Veuillez selectionner</option>";
                     $.ajax({
                         type:'GET',
-                        url:'/lieuvote/by/centrevote/'+centrevote_id,
-                        vdata:'_token = <?php echo csrf_token() ?>',
+                        url:url_app+'/lieuvote/by/centrevote/'+centrevote_id,
+                        data:'_token = <?php echo csrf_token() ?>',
                         success:function(data) {
 
                             $.each(data,function(index,row){

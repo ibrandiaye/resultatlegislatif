@@ -87,6 +87,7 @@
 
 @section('script')
 <script>
+     url_app = '{{ config('app.url') }}';
     $("#region_id").change(function () {
     var region_id =  $("#region_id").children("option:selected").val();
    // $(".region").val(region_id);
@@ -97,7 +98,7 @@
         var departement = "<option value=''>Veuillez selectionner</option>";
         $.ajax({
             type:'GET',
-            url:'/departement/by/region/'+region_id,
+            url:url_app+'/departement/by/region/'+region_id,
             data:'_token = <?php echo csrf_token() ?>',
             success:function(data) {
 
@@ -119,7 +120,7 @@
             var arrondissement = "<option value=''>Veuillez selectionner</option>";
             $.ajax({
                 type:'GET',
-                url:'/arrondissement/by/departement/'+departement_id,
+                url:url_app+'/arrondissement/by/departement/'+departement_id,
                 data:'_token = <?php echo csrf_token() ?>',
                 success:function(data) {
 
