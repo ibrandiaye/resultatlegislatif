@@ -174,7 +174,12 @@ class BureauController extends Controller
     public function docParBureau($id)
     {
         $bureaus = $this->bureauRepository->getByBureauVote($id);
-        $arrondissement = $this->arrondissementRepository->getOneArrondissementWithdepartementAndRegion(Auth::user()->arrondissement_id);
+        $arrondissement_id = 0;
+        if(count($bureaus)>0 )
+        {
+            $arrondissement_id = $bureaus[0]->arrondissement_id;
+        }
+        $arrondissement = $this->arrondissementRepository->getOneArrondissementWithdepartementAndRegion($arrondissement_id);
         return view("bureau.doc",compact("bureaus","arrondissement"));
     }
     public function docParCentre($id)

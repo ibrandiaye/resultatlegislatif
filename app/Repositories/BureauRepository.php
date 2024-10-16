@@ -38,7 +38,7 @@ class BureauRepository extends RessourceRepository{
         ->join("communes","bureaus.commune_id","=","communes.id")
         ->join("lieuvotes","bureaus.lieuvote_id","=","lieuvotes.id")
         ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
-        ->select("bureaus.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote")
+        ->select("bureaus.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote","communes.arrondissement_id as arrondissement_id")
         ->where("bureaus.lieuvote_id",$id)
         ->get();
     }
