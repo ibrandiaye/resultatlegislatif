@@ -19,27 +19,27 @@ class ArrondissementRepository extends RessourceRepository{
         ->first();
     }
     public function getByDepartement($departement){
-        return DB::table("Arrondissements")
+        return DB::table("arrondissements")
         ->where("departement_id",$departement)
         ->orderBy("nom","asc")
         ->get();
 }
 public function getAllOnLy(){
-    return DB::table("Arrondissements")
+    return DB::table("arrondissements")
     ->orderBy("nom","asc")
     ->get();
 }
 public function updateEtat($id){
-    return DB::table("Arrondissements")->where("id",$id)->update(["etat"=>true]);
+    return DB::table("arrondissements")->where("id",$id)->update(["etat"=>true]);
 }
 
 public function getArrondissementByNom($nom){
-    return DB::table("Arrondissements")->where('nom', 'like', '%'.$nom.'%')->get();
+    return DB::table("arrondissements")->where('nom', 'like', '%'.$nom.'%')->get();
 }
 
 public function getOneByName($nom)
 {
-    return DB::table("Arrondissements")->where("nom",$nom)->first();
+    return DB::table("arrondissements")->where("nom",$nom)->first();
 }
 
 }
