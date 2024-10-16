@@ -121,7 +121,7 @@ CommuneRepository $communeRepository){
         }
         else
         {
-            $nbCentreVote = $this->centrevoteRepository->countByArrondissement($user->arrondissement_id);
+           /* $nbCentreVote = $this->centrevoteRepository->countByArrondissement($user->arrondissement_id);
             $nbLieuVote  = $this->lieuvoteRepository->countByArrondissementt($user->arrondissement_id);
             $communes   = $this->communeRepository->getByArrondissment();
             $complet   = 0;
@@ -147,7 +147,8 @@ CommuneRepository $communeRepository){
             }
           //  dd($complet,$incomplete,$nonCommence);
             return view("dashboardr",compact("nbCentreVote","nbLieuVote","incomplete","nonCommence",
-        "complet"));
+        "complet"));*/
+        return redirect()->route("centre.by.arrondissement");
         }
        
     }
