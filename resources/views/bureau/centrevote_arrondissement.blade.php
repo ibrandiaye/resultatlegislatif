@@ -11,7 +11,7 @@
 
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ route('centrevote.create') }}" >Liste des centrevotes</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ route('centrevote.create') }}" >Liste des Lieu de vote</a></li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Starter</h4>
@@ -32,7 +32,7 @@
 
     <div class="row">
         <div class="col">
-            <h5>Nombre de Centre de vote  : {{$nbCentreVote}}</h4>
+            <h5>Nombre de Lieu de vote  : {{$nbCentreVote}}</h4>
            
            
         </div>
@@ -45,7 +45,7 @@
     </div>
 <div class="col-12">
     <div class="card ">
-        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES centrevotes</div>
+        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES Lieu de vote</div>
             <div class="card-body">
               
                     <form method="POST" action="{{ route('searhArrondissement') }}">
@@ -62,7 +62,7 @@
                         </div>
                         
                         <div class="col-lg-3">
-                            <label>centrevote</label>
+                            <label>Lieu de vote</label>
                             <select class="form-control" name="centrevote_id" id="centrevote_id" >
                             
                             </select>
@@ -80,7 +80,7 @@
                         <tr>
                             <th>#</th>
                             <th>Commune</th>
-                            <th>Nom centrevote</th>
+                            <th>Nom Lieu de vote</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

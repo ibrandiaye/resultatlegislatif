@@ -86,13 +86,10 @@ class BureauController extends Controller
             'prenom' => 'required',
             'fonction' => 'required|string',
             'tel' => 'required|unique:bureaus,tel|string|min:9|max:9',
-            'cni' => 'unique:bureaus,cni|string|min:12|max:13',
 
             //'g-recaptcha-response' => 'required|captcha',
             ], [
                 'tel.unique' => 'Cette personne est déjà affecté.',
-                'cni.min' => 'la taille du cni doit être au minimun 12 caractères.',
-                'cni.max' => 'la taille du cni  doit être au maximun 13 caractères.',
                 'tel.min' => 'la taille du tel doit être au minimun 9 caractères.',
                 'tel.max' => 'la taille du tel doit être au maximum 9 caractères.',
                 'cni.unique' => 'le numero cni est déjà affecté.',
@@ -101,21 +98,22 @@ class BureauController extends Controller
             $bureaus = $this->bureauRepository->getByLieuVote($request->lieuvote_id);
             if(count($bureaus) >=3)
             {
-                return redirect()->back()->withErrors("Vous avez déja atteind les trois membre")->withInput();
+                return redirect()->back()->withErrors("Vous avez déja atteind les trois membre");
             }
             foreach ($bureaus as $key => $value) {
 
                  if($value->fonction==$request->fonction)
                  {
-                    return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction)->withInput();
+                    return redirect()->back()->withErrors("Cette fonction est déja occupé par : ".$value->prenom.' '.$value->nom.' '.$value->fonction);
                  }
             }
         $bureau = $this->bureauRepository->store($request->all());
         if(count($bureaus) ==2)
         {
-            return redirect()->back()->withErrors("Vous avez terminer pour cette Bureau de vote")->withInput();
+            $lieuvote = $this->lieuvoteRepository->getById($request->lieuvote_id);
+            return redirect()->route("lieu.vote.by.centre",["id"=>$lieuvote->centrevote_id])->with("error","Vous avez terminer pour cette Bureau de vote");
         }
-        return redirect()->back()->withInput()->with("success","enregistrement avec succès");
+        return redirect()->back()->with("success","enregistrement avec succès");
 
     }
 

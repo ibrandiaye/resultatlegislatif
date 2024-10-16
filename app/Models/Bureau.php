@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bureau extends Model
 {
     use HasFactory;
-    protected $fillable = ["nom","prenom","tel","fonction","commune_id","lieuvote_id","profession","cni"] ;
+    protected $fillable = ["nom","prenom","tel","fonction","commune_id","lieuvote_id","profession"] ;
     
     public function commune()
     {

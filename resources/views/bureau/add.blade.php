@@ -81,12 +81,7 @@
                                             <input type="number" name="tel"  value="{{ old('tel') }}" class="form-control"  required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label>Cni </label>
-                                            <input type="number" data-parsley-maxlength="13" data-parsley-mleinngth="12" name="cni"  value="{{ old('cni') }}" class="form-control"  >
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Fonction </label>
