@@ -115,6 +115,7 @@ table{
                     <th>Fonction</th>
                     <th>Prenom et Nom</th>
                     <th>Profession</th>
+                    <th>tel</th>
 
                 </tr>
             </thead>
@@ -125,6 +126,7 @@ table{
                             <td>{{ $bureau->fonction }}</td>
                             <td>{{ $bureau->prenom }} {{ $bureau->nom }}</td>
                             <td>{{ $bureau->profession }}</td>
+                            <td>{{ $bureau->tel }}</td>
 
 
                         </tr>
