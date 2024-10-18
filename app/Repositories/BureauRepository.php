@@ -22,6 +22,17 @@ class BureauRepository extends RessourceRepository{
         ->get();
     }
 
+    public function getTel($tel)
+    {
+        return DB::table("bureaus")
+        ->join("communes","bureaus.commune_id","=","communes.id")
+        ->join("lieuvotes","bureaus.lieuvote_id","=","lieuvotes.id")
+        ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+        ->select("bureaus.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote")
+        ->where("bureaus.tel",$tel)
+        ->get();
+    }
+
     public function getByLieuVote($id)
     {
         return DB::table("bureaus")

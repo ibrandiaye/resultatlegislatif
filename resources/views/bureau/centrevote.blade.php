@@ -11,7 +11,7 @@
 
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ route('centrevote.create') }}" >Liste des Lieu de vote</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ route('centrevote.create') }}" >Liste des centrevotes</a></li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Starter</h4>
@@ -57,47 +57,73 @@
     </div>
 <div class="col-12">
     <div class="card ">
-        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES centrevotes</div>
+        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES Lieu de vote</div>
             <div class="card-body">
-              
-                    <form method="POST" action="{{ route('searhDepartement') }}">
+                
+                    <form method="POST" action="{{ route('searhAdmin') }}">
                         @csrf
                         <div class="row">
-                        <div class="col-lg-3">
-                            <label>Arrondissement</label>
-                            <select class="form-control" id="arrondissement_id" name="arrondissement_id" required>
-                                <option value="">Selectionnez</option>
-                                @foreach ($arrondissements as $item)
-                                    <option value="{{$item->id}}" {{$arrondissement_id==$item->id ? 'selected' : ''}}>{{$item->nom}}</option>
+                            <div class="col-lg-2">
+                                <label>Région</label>
+                                <select class="form-control" id="region_id" name="region_id" required="">
+                                    <option value="">Selectionner</option>
+                                    @foreach ($regions as $region)
+                                    <option value="{{$region->id}}"  {{$region_id==$region->id ? 'selected' : ''}}>{{$region->nom}}</option>
+                                        @endforeach
+
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Département</label>
+                                <select class="form-control" id="departement_id" name="departement_id" >
+                                    <option value=""> Veuillez choisir</option>
+                                    @foreach ($departements as $item)
+                                    <option value="{{$item->id}}" {{$departement_id==$item->id ? 'selected' : ''}}>{{$item->nom}}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
-                            <label>Commune</label>
-                            <select class="form-control" id="commune_id" name="commune_id" >
-                                <option value=""> Veuillez choisir</option>
-                                @foreach ($communes as $item)
-                                    <option value="{{$item->id}}" {{$commune_id==$item->id ? 'selected' : ''}}>{{$item->nom}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Arrondissement</label>
+                                <select class="form-control" id="arrondissement_id" name="arrondissement_id" >
+                                    <option value=""> Veuillez choisir</option>
+                                    @foreach ($arrondissements as $item)
+                                        <option value="{{$item->id}}" {{$arrondissement_id==$item->id ? 'selected' : ''}}>{{$item->nom}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Commune</label>
+                                <select class="form-control" id="commune_id" name="commune_id" >
+                                    <option value=""> Veuillez choisir</option>
+                                    @foreach ($communes as $item)
+                                        <option value="{{$item->id}}" {{$commune_id==$item->id ? 'selected' : ''}}>{{$item->nom}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label>Lieu de vote</label>
+                                <select class="form-control" name="centrevote_id" id="centrevote_id" >
+                                    <option value=""> Veuillez choisir</option>
+                                    @foreach ($centrevotes as $item)
+                                    <option value="{{$item->id}}" >{{$item->nom}}</option>
                                 @endforeach
-                            </select>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="submit" value="Valider" class="btn btn-primary" style="margin-top: 30px;">
+                            </div>
                         </div>
-                        <div class="col-lg-3">
-                            <label>Lieu de vote</label>
-                            <select class="form-control" name="centrevote_id" id="centrevote_id" >
-                            
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="submit" value="Valider" class="btn btn-primary" style="margin-top: 30px;">
-                        </div>
-                    </div>
+                        
                     </form>
-                   <br>
-                
+                    
+                <br>
                 <table id="datatable" class="table table-bordered table-responsive-md table-striped text-center">
                     <thead>
                         <tr>
-                            <th>#</th>
+                           
+                            <th>Region</th>
+                            <th>Departement</th>
                             <th>Arrondissement</th>
                             <th>Commune</th>
                             <th>Nom Lieu de vote</th>
@@ -107,11 +133,13 @@
                     <tbody>
                     @foreach ($centrevotes as $centrevote)
                         <tr>
-                            <td>{{ $centrevote->id }}</td>
+                           
+                            <td>{{ $centrevote->region }}</td>
+                            <td>{{ $centrevote->departement }}</td>
                             <td>{{ $centrevote->arrondissement }}</td>
                             <td>{{ $centrevote->commune }}</td>
                             <td>{{ $centrevote->nom }}</td>
-                          
+                            
                             <td>
                                 <a href="{{ route('lieu.vote.by.centre', $centrevote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                              {{--    {!! Form::open(['method' => 'DELETE', 'route'=>['centrevote.destroy', $centrevote->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
@@ -139,10 +167,36 @@
 @section('script')
 <script>
  url_app = '{{ config('app.url') }}';
+ $("#region_id").change(function () {
+    var region_id =  $("#region_id").children("option:selected").val();
+   // $(".region").val(region_id);
+   // $(".departement").val("");
+    $(".commune").val("");
+    $("#departement_id").empty();
+    $("#commune_id").empty();
+    $("#arrondissement_id").empty();
+    $("#centrevote_id").empty();
+        var departement = "<option value=''>Veuillez selectionner</option>";
+        $.ajax({
+            type:'GET',
+            url:url_app+'/departement/by/region/'+region_id,
+            data:'_token = <?php echo csrf_token() ?>',
+            success:function(data) {
+
+                $.each(data,function(index,row){
+                    //alert(row.nomd);
+                    departement +="<option value="+row.id+">"+row.nom+"</option>";
+
+                });
+               
+                $("#departement_id").append(departement);
+            }
+        });
+    });
     $("#departement_id").change(function () {
         var departement_id =  $("#departement_id").children("option:selected").val();
       //  $(".departement").val(departement_id);
-        $(".commune").val("");
+       // $(".commune").val("");
        $("#arrondissement_id").empty();
        $("#centrevote_id").empty();
             var arrondissement = "<option value=''>Veuillez selectionner</option>";
@@ -162,7 +216,7 @@
                 }
             });
         });
-
+         
         $("#arrondissement_id").change(function () {
         var arrondissement_id =  $("#arrondissement_id").children("option:selected").val();
       //  $(".departement").val(departement_id);
@@ -190,11 +244,9 @@
         $("#commune_id").change(function () {
             var commune_id =  $("#commune_id").children("option:selected").val();
                 var centrevote = "<option value=''>Veuillez selectionner</option>";
-                $("#centrevote_id").empty();
                 $.ajax({
                     type:'GET',
                     url:url_app+'/centrevote/by/commune/'+commune_id,
-             
                     vdata:'_token = <?php echo csrf_token() ?>',
                     success:function(data) {
 
@@ -203,7 +255,7 @@
                             centrevote +="<option value="+row.id+">"+row.nom+"</option>";
 
                         });
-                     
+                        $("#centrevote_id").empty();
                         $("#centrevote_id").append(centrevote);
                     }
                 });
@@ -227,8 +279,7 @@
                             $("#lieuvote_id").append(lieuvote);
                         }
                     });
-                });  
-              
+                });     
 
 
 </script>

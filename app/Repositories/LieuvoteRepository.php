@@ -189,5 +189,9 @@ public function countByRegion($id){
     ->where("departements.region_id",$id)
     ->count();
 }
+public function getAllWithBureau(){
+    return Lieuvote::with(["bureaus"])
+    ->get();
+}
 
 }

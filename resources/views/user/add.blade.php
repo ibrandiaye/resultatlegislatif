@@ -117,11 +117,11 @@
 
 @section('script')
 <script>
+       url_app = '{{ config('app.url') }}';
     $("#region_id").change(function () {
     var region_id =  $("#region_id").children("option:selected").val();
    // $(".region").val(region_id);
    // $(".departement").val("");
-   url_app = '{{ config('app.url') }}';
     $(".commune").val("");
     $("#departement_id").empty();
     $("#commune_id").empty();

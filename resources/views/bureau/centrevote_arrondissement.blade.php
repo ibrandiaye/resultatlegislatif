@@ -43,6 +43,19 @@
             <h5>Nombre d'electeurs : {{$nbElecteur}}</h4>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h5>Complete  : {{$complet}}</h4>
+           
+           
+        </div>
+        <div class="col">
+            <h5>Imcomplete : {{$incomplete}}</h4>
+        </div>
+        <div class="col">
+            <h5>Nom Commencer : {{$nonCommence}}</h4>
+        </div>
+    </div>
 <div class="col-12">
     <div class="card ">
         <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES Lieu de vote</div>

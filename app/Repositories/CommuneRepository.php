@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Commune;
+use App\Models\Departement;
 use App\Repositories\RessourceRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,10 +47,29 @@ public function getOneCommuneWithArrondissementdepartementAndRegion($id){
     ->where('id',$id)
     ->first();
 }
- public function getByArrondissment()
+ public function getByArrondissment($id)
  {
     return Commune::with(['centrevotes','centrevotes.lieuvotes','centrevotes.lieuvotes.bureaus'])
-    ->where('arrondissement_id',Auth::user()->arrondissement_id)
+    ->where('arrondissement_id',$id)
     ->get();
  }
+ public function getByCommune($id)
+ {
+    return Commune::with(['centrevotes','centrevotes.lieuvotes','centrevotes.lieuvotes.bureaus'])
+    ->where('id',$id)
+    ->get();
+ }
+ public function getByDepartements($id)
+ {
+    return Commune::with(['centrevotes','centrevotes.lieuvotes','centrevotes.lieuvotes.bureaus'])
+    ->where('departement_id',$id)
+    ->get();
+ }
+ public function getByRegions($id)
+ {
+    return Departement::with(['communes','communes.centrevotes','communes.centrevotes.lieuvotes','communes.centrevotes.lieuvotes.bureaus'])
+    ->where('region_id',$id)
+    ->get();
+ }
+ 
 }

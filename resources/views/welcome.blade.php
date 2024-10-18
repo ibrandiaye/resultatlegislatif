@@ -57,7 +57,7 @@
                             @if(Auth::user()->role=='admin')
                             <li class="menu-title">
 
-                                <li>
+                              {{--   <li>
                                     <a href="{{ route('home') }}">
                                         <i class="mdi mdi-airplay"></i> NATIONAL
                                     </a>
@@ -246,19 +246,23 @@
                                     </ul>
                                 </li>
 
+ --}}
+                            <li>
+                                <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
 
                             </li>
 
-                            @endif
-                            @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet')
-                           {{--  <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau </span></a>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Utilisateur </span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ route('bureau.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('bureau.index') }}">Lister</a></li>
+                                    <li><a href="{{ route('user.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('user.index') }}">Lister</a></li>
                                 </ul>
-                            </li> --}}
+                            </li>
+                            </li>
+
                             @endif
+                           
                             @if( Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
                           {{--   <li>
                                 <a href="{{ route('home') }}">
@@ -271,7 +275,19 @@
                             </li>
                             @endif
 
-
+                            @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
+                            {{--  <li class="has_sub">
+                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau </span></a>
+                                 <ul class="list-unstyled">
+                                     <li><a href="{{ route('bureau.create') }}"> Ajouter</a></li>
+                                     <li><a href="{{ route('bureau.index') }}">Lister</a></li>
+                                 </ul>
+                             </li> --}}
+                             <li>
+                                 <a href="{{ route('chercher.bureau') }}" class="waves-effect"><i class="mdi mdi-loupe"></i><span>Chercher </span></a>
+ 
+                             </li>
+                             @endif
 
                         </ul>
                     </div>

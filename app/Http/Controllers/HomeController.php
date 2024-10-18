@@ -74,7 +74,7 @@ CommuneRepository $communeRepository){
         $user = Auth::user();
         if($user->role=="admin")
         {
-            $nbCentrevotes = $this->departementRepository->nbDepartements();
+          /*  $nbCentrevotes = $this->departementRepository->nbDepartements();
             $nbRtsCentre = $this->departementRepository->nbDepartementBEtat(true);
            // dd($nbCentrevotes);
            $tauxDepouillement = round(($nbRtsCentre/$nbCentrevotes)*100,2);
@@ -86,11 +86,7 @@ CommuneRepository $communeRepository){
     
            $rtsParCandidats = $this->rtsDepartementRepository->rtsByCandidat();
            $rtsParCandidatDiasporas = $this->rtsPayrrepository->rtsByCandidat();
-          /*   $rtsNational=[];
-    
-           foreach ($rtsParCandidats as $key => $value) {
-            
-           } */
+         
           $candidats = $this->candidatRepository->getAll();
     
           $electeursDiaspora = $this->lieuvoteeRepository->nbElecteurs();
@@ -117,7 +113,8 @@ CommuneRepository $communeRepository){
            return view("dashboardr",compact("nbCentrevotes","nbRtsCentre","electeurs",
             "tauxDepouillement","votants","tauxDepouillementElecteurs","rtsParCandidats","nbVotantDiaspora",
             "nbureauDiaspora","electeursDiaspora","nCentreVote","tauxDeParticipations",
-            "nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));
+            "nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));*/
+            return redirect()->route("centre.by.arrondissement");
         }
         else
         {

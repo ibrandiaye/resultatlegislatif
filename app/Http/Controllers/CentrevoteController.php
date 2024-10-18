@@ -9,6 +9,7 @@ use App\Repositories\CentrevoteRepository;
 use App\Repositories\CommuneRepository;
 use App\Repositories\DepartementRepository;
 use App\Repositories\LieuvoteRepository;
+use App\Repositories\RegionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,15 +22,17 @@ class CentrevoteController extends Controller
     protected $arrondissementRepository;
     protected $departementRepository;
     protected $lieuvoteRepository;
+    protected $regionRepository;
 
     public function __construct(CentrevoteRepository $centrevoteRepository, CommuneRepository $communeRepository,
     ArrondissementRepository $arrondissementRepository, DepartementRepository $departementRepository,
-   LieuvoteRepository $lieuvoteRepository){
+   LieuvoteRepository $lieuvoteRepository,RegionRepository $regionRepository){
         $this->centrevoteRepository         =   $centrevoteRepository;
         $this->communeRepository            = $communeRepository;
         $this->arrondissementRepository     = $arrondissementRepository;
         $this->departementRepository        = $departementRepository;
         $this->lieuvoteRepository           = $lieuvoteRepository;
+        $this->regionRepository             = $regionRepository;
     }
 
     /**
@@ -179,8 +182,30 @@ class CentrevoteController extends Controller
         $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt(Auth::user()->arrondissement_id);
         $nbCentreVote   = $this->centrevoteRepository->countByArrondissement(Auth::user()->arrondissement_id);
         $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement(Auth::user()->arrondissement_id);
+        $communess   = $this->communeRepository->getByArrondissment(Auth::user()->arrondissement_id);
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
+        foreach ($communess as $key => $commune) {
+            foreach ($commune->centrevotes as $key1 => $centrevote) {
+                foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                    if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                    {
+                        $incomplete = $incomplete + 1;
+                    }
+                    else if(count($lieuvote->bureaus) == 0)
+                    {
+                        $nonCommence = $nonCommence +1;
+                    }
+                    else
+                    {
+                        $complet = $complet + 1;
+                    }
+                }
+            }
+        }
         return view("bureau.centrevote_arrondissement",compact("centrevotes","communes","nbBureauVote",
-        "nbCentreVote","nbElecteur"));
+        "nbCentreVote","nbElecteur","incomplete","nonCommence","complet"));
     }
     public function getByDepartement()
     {
@@ -193,9 +218,67 @@ class CentrevoteController extends Controller
         $nbBureauVote  = $this->lieuvoteRepository->countByDepartement(Auth::user()->departement_id);
         $nbCentreVote   = $this->centrevoteRepository->countByDepartement(Auth::user()->departement_id);
         $nbElecteur   = $this->lieuvoteRepository->sommeByDepartement(Auth::user()->departement_id);
+        $communess   = $this->communeRepository->getByDepartements(Auth::user()->departement_id);
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
+        foreach ($communess as $key => $commune) {
+            foreach ($commune->centrevotes as $key1 => $centrevote) {
+                foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                    if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                    {
+                        $incomplete = $incomplete + 1;
+                    }
+                    else if(count($lieuvote->bureaus) == 0)
+                    {
+                        $nonCommence = $nonCommence +1;
+                    }
+                    else
+                    {
+                        $complet = $complet + 1;
+                    }
+                }
+            }
+        }
         return view("bureau.centrevote_departement",compact("centrevotes","arrondissements","nbBureauVote",
-    "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id"));
+    "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id","complet","incomplete","nonCommence"));
     }
+    public function getAll()
+     {
+        $centrevotes = $this->centrevoteRepository->allCentre();
+        $regions  = $this->regionRepository->getAll();
+        $nbBureauVote  = $this->lieuvoteRepository->nbLieuVote();
+        $nbCentreVote   = $this->centrevoteRepository->nbCentreVote();
+        $nbElecteur   = $this->lieuvoteRepository->nbElecteurs();
+        $communes = [];
+        $arrondissements = [];
+        $departements = [];
+        $commune_id = "";
+        $arrondissement_id = "";
+        $departement_id = "";
+        $region_id = "";
+        $lieuvotes   = $this->lieuvoteRepository->getAllWithBureau();
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
+        foreach ($lieuvotes as $key2 => $lieuvote) {
+            if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+            {
+                $incomplete = $incomplete + 1;
+            }
+            else if(count($lieuvote->bureaus) == 0)
+            {
+                $nonCommence = $nonCommence +1;
+            }
+            else
+            {
+                $complet = $complet + 1;
+            }
+        }
+        return view("bureau.centrevote",compact("centrevotes","regions","nbBureauVote",
+        "nbCentreVote","nbElecteur","communes","arrondissements","departements","regions","commune_id","arrondissement_id","departement_id"
+        ,"region_id","complet","incomplete","nonCommence"));
+     }
     public function getByRegion()
     {
          // dd("ok");
@@ -209,12 +292,39 @@ class CentrevoteController extends Controller
         $nbBureauVote  = $this->lieuvoteRepository->countByRegion(Auth::user()->region_id);
         $nbCentreVote   = $this->centrevoteRepository->countByRegion(Auth::user()->region_id);
         $nbElecteur   = $this->lieuvoteRepository->sumByRegion(Auth::user()->region_id);
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
+        $departementss   = $this->communeRepository->getByRegions(Auth::user()->region_id);
+        //  dd($departement);
+            foreach ($departementss as $index => $value) {
+                foreach ($value->communes as $key => $commune) {
+                    foreach ($commune->centrevotes as $key1 => $centrevote) {
+                        foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                            if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                            {
+                                $incomplete = $incomplete + 1;
+                            }
+                            else if(count($lieuvote->bureaus) == 0)
+                            {
+                                $nonCommence = $nonCommence +1;
+                            }
+                            else
+                            {
+                                $complet = $complet + 1;
+                            }
+                        }
+                    }
+                }
+            }
+           
         return view("bureau.centrevote_region",compact("centrevotes","departements","nbBureauVote",
-        "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id","departement_id","arrondissements"));
+        "nbCentreVote","nbElecteur","communes","commune_id","arrondissement_id","departement_id","arrondissements","complet","incomplete","nonCommence"));
     }
 
     public function centreByLocalite()
     {
+        
         if(Auth::user()->role=="sous_prefet")
         {
             return   $this->getByArrondissement();
@@ -227,10 +337,17 @@ class CentrevoteController extends Controller
         {
             return  $this->getByRegion();
         }
+        elseif(Auth::user()->role=="admin")
+        {
+            return  $this->getAll();
+        }
     }
 
     public function searhArrondissement(Request $request)
     {
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
         if($request->centrevote_id)
         {
             return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
@@ -242,14 +359,37 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
             $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            $communess   = $this->communeRepository->getByCommune($request->commune_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_arrondissement",compact("centrevotes","communes","nbBureauVote",
-            "nbCentreVote","nbElecteur"));
+            "nbCentreVote","nbElecteur","incomplete","nonCommence","complet"));
         }
 
     }
 
     public function searhDepartement(Request $request)
     {
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
         $commune_id = $request->commune_id;
         $arrondissement_id = $request->arrondissement_id;
         if($request->centrevote_id)
@@ -264,8 +404,28 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
             $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            $communess   = $this->communeRepository->getByCommune($request->commune_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_departement",compact("centrevotes","communes","arrondissements","nbBureauVote",
-            "nbCentreVote","nbElecteur","commune_id","arrondissement_id"));
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","incomplete","nonCommence","complet"));
         }
         else if($request->arrondissement_id)
         {
@@ -275,8 +435,28 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt($request->arrondissement_id);
             $nbCentreVote   = $this->centrevoteRepository->countByArrondissement($request->arrondissement_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement($request->arrondissement_id);
+            $communess   = $this->communeRepository->getByArrondissment($request->arrondissement_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_departement",compact("centrevotes","communes","nbBureauVote","arrondissements",
-            "nbCentreVote","nbElecteur","commune_id","arrondissement_id"));
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","incomplete","nonCommence","complet"));
         }
 
 
@@ -286,6 +466,9 @@ class CentrevoteController extends Controller
         $commune_id = $request->commune_id;
         $arrondissement_id = $request->arrondissement_id;
         $departement_id = $request->departement_id;
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
         if($request->centrevote_id)
         {
             return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
@@ -299,8 +482,28 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
             $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            $communess   = $this->communeRepository->getByCommune($request->commune_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_region",compact("centrevotes","communes","arrondissements","nbBureauVote",
-            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements"));
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements","incomplete","nonCommence","complet"));
         }
         elseif($request->arrondissement_id)
         {
@@ -311,11 +514,32 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt($request->arrondissement_id);
             $nbCentreVote   = $this->centrevoteRepository->countByArrondissement($request->arrondissement_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement($request->arrondissement_id);
+            $communess   = $this->communeRepository->getByArrondissment($request->arrondissement_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_region",compact("centrevotes","communes","nbBureauVote","arrondissements",
-            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements"));
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements","incomplete","nonCommence","complet"));
         }
         elseif($request->departement_id)
         {
+
         
             $communes = [];
             $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
@@ -324,10 +548,188 @@ class CentrevoteController extends Controller
             $nbBureauVote  = $this->lieuvoteRepository->countByDepartement($request->departement_id);
             $nbCentreVote   = $this->centrevoteRepository->countByDepartement($request->departement_id);
             $nbElecteur   = $this->lieuvoteRepository->sumByDepartements($request->departement_id);
+            $communess   = $this->communeRepository->getByDepartements($request->departement_id);
+           
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
             return view("bureau.centrevote_region",compact("centrevotes","departements","nbBureauVote",
-            "nbCentreVote","nbElecteur","departement_id","departements","commune_id","arrondissement_id","arrondissements","communes"));
+            "nbCentreVote","nbElecteur","departement_id","departements","commune_id","arrondissement_id","arrondissements"
+            ,"communes","incomplete","nonCommence","complet"));
         }
 
+
+    }
+
+    public function searhAdmin(Request $request)
+    {
+        $commune_id = $request->commune_id;
+        $arrondissement_id = $request->arrondissement_id;
+        $departement_id = $request->departement_id;
+        $region_id = $request->region_id;
+        $regions  = $this->regionRepository->getAll();
+        $complet   = 0;
+        $incomplete = 0;
+        $nonCommence  = 0;
+        if($request->centrevote_id)
+        {
+            return redirect()->route("lieu.vote.by.centre",["id"=>$request->centrevote_id]);
+        }
+        elseif($request->commune_id)
+        {
+            $departements = $this->departementRepository->getByRegion($request->region_id);
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByCommune($request->commune_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByCommune($request->commune_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByCommune($request->commune_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByCommune($request->commune_id);
+            $communess   = $this->communeRepository->getByCommune($request->commune_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
+            return view("bureau.centrevote",compact("centrevotes","communes","arrondissements","nbBureauVote",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements","regions",'region_id',
+        "incomplete","nonCommence","complet"));
+        }
+        elseif($request->arrondissement_id)
+        {
+            $departements = $this->departementRepository->getByRegion($request->region_id);
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $centrevotes = $this->centrevoteRepository->getByArrondissement($request->arrondissement_id);
+            $communes    = $this->communeRepository->getByArrondissement($request->arrondissement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByArrondissementt($request->arrondissement_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByArrondissement($request->arrondissement_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByArrondissement($request->arrondissement_id);
+            $communess   = $this->communeRepository->getByArrondissment($request->arrondissement_id);
+          
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
+            return view("bureau.centrevote",compact("centrevotes","communes","nbBureauVote","arrondissements",
+            "nbCentreVote","nbElecteur","commune_id","arrondissement_id","departement_id","departements",'regions','region_id',
+            "incomplete","nonCommence","complet"));
+        }
+        elseif($request->departement_id)
+        {
+        
+            $communes = [];
+            $arrondissements = $this->arrondissementRepository->getByDepartement($request->departement_id);
+            $departements = $this->departementRepository->getByRegion($request->region_id);
+            $centrevotes = $this->centrevoteRepository->getByDepartement($request->departement_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByDepartement($request->departement_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByDepartement($request->departement_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByDepartements($request->departement_id);
+            $communess   = $this->communeRepository->getByDepartements($request->departement_id);
+           
+            foreach ($communess as $key => $commune) {
+                foreach ($commune->centrevotes as $key1 => $centrevote) {
+                    foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                        if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                        {
+                            $incomplete = $incomplete + 1;
+                        }
+                        else if(count($lieuvote->bureaus) == 0)
+                        {
+                            $nonCommence = $nonCommence +1;
+                        }
+                        else
+                        {
+                            $complet = $complet + 1;
+                        }
+                    }
+                }
+            }
+            return view("bureau.centrevote",compact("centrevotes","departements","nbBureauVote",
+            "nbCentreVote","nbElecteur","departement_id","departements","commune_id","arrondissement_id","arrondissements","communes","regions",
+            'region_id',"incomplete","nonCommence","complet"));
+        }
+        elseif($request->region_id)
+        {
+
+        
+            $communes = [];
+            $departement_id = "";
+            $arrondissements = $this->arrondissementRepository->getByRegion($request->region_id);
+
+            $centrevotes = $this->centrevoteRepository->getByRegion($request->region_id);
+            $departements = $this->departementRepository->getByRegion($request->region_id);
+            $nbBureauVote  = $this->lieuvoteRepository->countByRegion($request->region_id);
+            $nbCentreVote   = $this->centrevoteRepository->countByRegion($request->region_id);
+            $nbElecteur   = $this->lieuvoteRepository->sumByRegion($request->region_id);
+            $departementss   = $this->communeRepository->getByRegions($request->region_id);
+        //  dd($departement);
+            foreach ($departementss as $index => $value) {
+                foreach ($value->communes as $key => $commune) {
+                    foreach ($commune->centrevotes as $key1 => $centrevote) {
+                        foreach ($centrevote->lieuvotes as $key2 => $lieuvote) {
+                            if(count($lieuvote->bureaus) >= 1 && count($lieuvote->bureaus) <3)
+                            {
+                                $incomplete = $incomplete + 1;
+                            }
+                            else if(count($lieuvote->bureaus) == 0)
+                            {
+                                $nonCommence = $nonCommence +1;
+                            }
+                            else
+                            {
+                                $complet = $complet + 1;
+                            }
+                        }
+                    }
+                }
+            }
+           
+            return view("bureau.centrevote",compact("centrevotes","departements","nbBureauVote",
+            "nbCentreVote","nbElecteur","departement_id","departements","commune_id","arrondissement_id","arrondissements",'region_id'
+            ,"communes","regions","incomplete","nonCommence","complet"));
+        }
 
     }
     

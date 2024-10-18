@@ -24,6 +24,14 @@ class ArrondissementRepository extends RessourceRepository{
         ->orderBy("nom","asc")
         ->get();
 }
+public function getByRegion($region){
+    return DB::table("arrondissements")
+    ->join("departements","arrondissements.departement_id","=","departements.id")
+    ->where("departements.region_id",$region)
+    ->select("arrondissements.*")
+    ->orderBy("arrondissements.nom","asc")
+    ->get();
+}
 public function getAllOnLy(){
     return DB::table("arrondissements")
     ->orderBy("nom","asc")

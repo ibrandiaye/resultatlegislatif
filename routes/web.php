@@ -158,5 +158,10 @@ Route::get('/doc/centrevote/{id}',[BureauController::class,'docParCentre'])->nam
 Route::post('/searh-arrondissement',[CentrevoteController::class,'searhArrondissement'])->name("searhArrondissement")->middleware("auth");
 
 Route::post('/searh-departement',[CentrevoteController::class,'searhDepartement'])->name("searhDepartement")->middleware("auth");
-Route::post('/searh-region',[CentrevoteController::class,'searhRegion'])->name("searhRegion")->middleware("auth");
+Route::post('/searh-region',action: [CentrevoteController::class,'searhRegion'])->name("searhRegion")->middleware("auth");
+
+Route::post('/searh-admin',action: [CentrevoteController::class,'searhAdmin'])->name("searhAdmin")->middleware("auth");
+Route::get('/chercher/bureau',[BureauController::class,'chercherBureau'])->name('chercher.bureau')->middleware("auth");
+
+Route::post('/search/tel',action: [BureauController::class,'searchTel'])->name("search.tel")->middleware("auth");
 

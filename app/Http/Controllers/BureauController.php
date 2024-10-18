@@ -38,6 +38,13 @@ class BureauController extends Controller
         return view('bureau.index',compact('bureaus'));
     }
 
+    public function searchTel(Request $request)
+    {
+        $bureaus = $this->bureauRepository->getTel($request->tel);
+        return view('bureau.chercher',compact('bureaus'));
+    }
+
+    
     public function getByLieuVote($id)
     {
         $bureaus = $this->bureauRepository->getByLieuVote($id);
@@ -199,4 +206,10 @@ class BureauController extends Controller
         $arrondissement = $this->arrondissementRepository->getOneArrondissementWithdepartementAndRegion(Auth::user()->arrondissement_id);
         return view("bureau.doc",compact("bureaus","arrondissement"));
     }*/
+
+    public function chercherBureau()
+    {
+        $bureaus = [];
+        return view("bureau.chercher",compact("bureaus"));
+    }
 }
