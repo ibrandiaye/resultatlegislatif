@@ -259,6 +259,35 @@
                                     <li><a href="{{ route('user.index') }}">Lister</a></li>
                                 </ul>
                             </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Region </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('region.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('region.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Departement </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('departement.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('departement.index') }}"> Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Arrondissement </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('arrondissement.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('arrondissement.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Commune </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('commune.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('commune.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+
                             </li>
 
                             @endif
