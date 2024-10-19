@@ -67,6 +67,7 @@
                                             <option value="sous_prefet"  {{$user->role=="sous_prefet" ? 'selected' : ''}}>Sous Prefet</option> 
                                             <option value="prefet"  {{$user->role=="prefet" ? 'selected' : ''}}>Prefet</option> 
                                             <option value="gouverneur"  {{$user->role=="gouverneur" ? 'selected' : ''}}>Gouverneur</option> 
+                                            <option value="superviseur" {{$user->role=="superviseur" ? 'selected' : ''}}>Superviseur</option> 
                                         </select>
                                     </div>
                                 </div>

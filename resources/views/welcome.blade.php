@@ -291,7 +291,12 @@
                             </li>
 
                             @endif
-                           
+                           @if (Auth::user()->role=='superviseur')
+                           <li>
+                            <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
+
+                        </li>
+                           @endif
                             @if( Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
                           {{--   <li>
                                 <a href="{{ route('home') }}">

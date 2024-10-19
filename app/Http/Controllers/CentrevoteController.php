@@ -337,7 +337,7 @@ class CentrevoteController extends Controller
         {
             return  $this->getByRegion();
         }
-        elseif(Auth::user()->role=="admin")
+        elseif(Auth::user()->role=="admin" || Auth::user()->role=="superviseur")
         {
             return  $this->getAll();
         }

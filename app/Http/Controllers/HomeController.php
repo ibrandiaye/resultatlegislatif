@@ -72,7 +72,7 @@ CommuneRepository $communeRepository){
     }
     public function index(){
         $user = Auth::user();
-        if($user->role=="admin")
+        if($user->role=="admin" || $user->role=="superviseur" )
         {
           /*  $nbCentrevotes = $this->departementRepository->nbDepartements();
             $nbRtsCentre = $this->departementRepository->nbDepartementBEtat(true);
