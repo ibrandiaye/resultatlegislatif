@@ -92,7 +92,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group no-margin">
                                                             <label for="field-7" class="control-label">Repetez Mot de passe</label>
-                                                            <input type="password" name="password_confirmation" class="form-control" id="field-3" placeholder="Address">                                                        </div>
+                                                            <input type="password" name="password_confirmation" class="form-control" id="field-3" placeholder="Repetez Mot de passe">                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>                                          
