@@ -42,6 +42,7 @@
                         <tr>
                             <th>#</th>
                             <th>Nom département</th>
+                            <th>NB Candidat</th>
                             <th>Nom region</th>
                             <th>Actions</th>
                         </tr>
@@ -51,6 +52,7 @@
                         <tr>
                             <td>{{ $departement->id }}</td>
                             <td>{{ $departement->nom }}</td>
+                            <td>{{ $departement->nbcandidat }}</td>
                             <td>{{ $departement->region->nom }}</td>
                             <td>
                                 <a href="{{ route('departement.edit', $departement->id) }}" role="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>

@@ -9,7 +9,7 @@ class Departement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom','region_id','latitude','longitude','etat','participation'
+        'nom','region_id','latitude','longitude','etat','participation','nbcandidat'
     ];
     public function region(){
         return $this->belongsTo(Region::class);

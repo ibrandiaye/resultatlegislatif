@@ -57,7 +57,7 @@
                             @if(Auth::user()->role=='admin')
                             <li class="menu-title">
 
-                              {{--   <li>
+                                <li>
                                     <a href="{{ route('home') }}">
                                         <i class="mdi mdi-airplay"></i> NATIONAL
                                     </a>
@@ -246,84 +246,26 @@
                                     </ul>
                                 </li>
 
- --}}
-                            <li>
-                                <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
-
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Utilisateur </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('user.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('user.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Region </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('region.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('region.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Departement </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('departement.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('departement.index') }}"> Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Arrondissement </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('arrondissement.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('arrondissement.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Commune </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('commune.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('commune.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Collect par Bureau de vote </span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ route('rtslieu.create') }}"> Ajouter</a></li>
-                                    <li><a href="{{ route('rtslieu.index') }}">Lister</a></li>
-                                </ul>
-                            </li>
-
+ 
                             </li>
                            
                             @endif
-                           @if (Auth::user()->role=='superviseur')
+                          {{--    @if (Auth::user()->role=='superviseur')
                            <li>
                             <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
 
                         </li>
                            @endif
                             @if( Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
-                          {{--   <li>
-                                <a href="{{ route('home') }}">
-                                <i class="mdi mdi-clock"></i> Tableau de bords
-                                </a>
-                            </li> --}}
+                       
                             <li>
                                 <a href="{{ route('centre.by.arrondissement') }}" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Lieu de Vote </span></a>
 
                             </li>
                             @endif
 
-                            @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
-                            {{--  <li class="has_sub">
-                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span>Bureau </span></a>
-                                 <ul class="list-unstyled">
-                                     <li><a href="{{ route('bureau.create') }}"> Ajouter</a></li>
-                                     <li><a href="{{ route('bureau.index') }}">Lister</a></li>
-                                 </ul>
-                             </li> --}}
+                          @if(Auth::user()->role=='admin' || Auth::user()->role=='prefet' || Auth::user()->role=='sous_prefet' || Auth::user()->role=='gouverneur')
+                          
                              <li>
                                  <a href="{{ route('chercher.bureau') }}" class="waves-effect"><i class="mdi mdi-loupe"></i><span>Chercher </span></a>
  
@@ -333,7 +275,7 @@
                                 modifier Mot de passe
                             </button></li>
                              
-                             @endif
+                             @endif --}}
 
                         </ul>
                     </div>
