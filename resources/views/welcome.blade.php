@@ -429,7 +429,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group no-margin">
                                                         <label for="field-7" class="control-label">Repetez Mot de passe</label>
-                                                        <input type="password" name="password_confirmation" class="form-control" id="field-3" placeholder="Repetez Mot de passe">                                                        </div>
+                                                        <input type="password" name="password_confirmation" class="form-control" id="field-7" placeholder="Repetez Mot de passe">                                                        </div>
                                                 </div>
                                             </div>
                                         </div>                                          
@@ -492,15 +492,16 @@
         <!-- App js -->
         <script src="{{asset('js/app.js') }}"></script>
         <script src="{{asset('plugins/parsleyjs/parsley.min.js') }}"></script>
-        <script src="{{asset('plugins/parsleyjs/fr.js') }}"></script>
 
-        <script type="text/javascript">
+
+     {{--     <script src="{{asset('plugins/parsleyjs/fr.js') }}"></script>
+      <script type="text/javascript">
             $(document).ready(function() {
                 $('form').parsley();
                 window.Parsley.setLocale("fr");
             });
 
-        </script>
+        </script> --}}
 
 
     </body>

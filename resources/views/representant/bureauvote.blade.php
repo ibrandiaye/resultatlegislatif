@@ -41,7 +41,7 @@
                             <th>Lieu de vote</th>
                             <th>Bureau</th>
                             <th>Electeurs</th>
-                             <th>Etat</th> 
+                            {{-- <th>Etat</th> --}}
                             <th>Action</th>
 
                         </tr>
@@ -55,17 +55,17 @@
                                 <td>{{ $lieuvote->centrevote->nom }}</td>
                                 <td>{{ $lieuvote->nom }}</td>
                                 <td>{{ $lieuvote->nb }}</td>
-                                <td>
+                               {{--  <td>
                                     @if (count($lieuvote->bureaus)<3)
                                         <span class="badge badge-danger">Incompléte</span>
                                     @else
                                         <span class="badge badge-success">compléte</span>
                                     @endif
-                                  </td> 
+                                  </td> --}}
                                 <td>
 
-                                    <a href="{{ route('bureau.by.lieuvote', $lieuvote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('doc.bureau', $lieuvote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i></a>
+                                    <a href="{{ route('representant.by.lieuvote', $lieuvote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('doc.representant', $lieuvote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i></a>
                                   @if( Auth::user()->role=="sous_prefet")  <a href="{{ route('lieuvote.bureau.create', ["id"=>$lieuvote->id,"commune"=> $lieuvote->centrevote->commune->id]) }}" role="button" class="btn btn-info"><i class="fas fa-user"></i></a>
                                     {!! Form::open(['method' => 'GET', 'route'=>['destroy.by.lieuvote', $lieuvote->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer les membres du bureau ?')) { return false; }"]) !!}
                                     <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>

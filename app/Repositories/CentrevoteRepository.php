@@ -108,6 +108,12 @@ public function allCentre(){
         ->where("id",$id)
         ->first();
     }
+    public function getRepresentantByCentre($id)
+    {
+        return Centrevote::with(["lieuvotes","lieuvotes.representants","commune"])
+        ->where("id",$id)
+        ->first();
+    }
 
     public function countByCommune($id){
         return DB::table("centrevotes")

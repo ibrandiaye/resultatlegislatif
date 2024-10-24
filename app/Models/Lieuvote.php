@@ -18,5 +18,8 @@ class Lieuvote extends Model
     public function bureaus(){
         return $this->hasMany(Bureau::class);
     }
+    public function representants(){
+        return $this->hasMany(Representant::class);
+    }
 
 }

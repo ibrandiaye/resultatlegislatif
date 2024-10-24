@@ -16,6 +16,7 @@ use App\Http\Controllers\LieuvoteeController;
 use App\Http\Controllers\LocaliteController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\PaysController;
+use App\Http\Controllers\RepresentantController;
 use App\Http\Controllers\RtscentreeController;
 use App\Http\Controllers\RtsCommuneController;
 use App\Http\Controllers\RtsDepartementontroller;
@@ -60,11 +61,15 @@ Route::resource('rtspays', RtspaysController::class)->middleware("auth");
 Route::resource('rtscommune', RtsCommuneController::class)->middleware("auth");
 Route::resource('rtsdepartement', RtsDepartementontroller::class)->middleware("auth");
 Route::resource('user', controller: UserController::class)->middleware("auth");
-Route::resource('bureau', controller: BureauController::class)->middleware("auth");
+Route::resource(name: 'bureau', controller: BureauController::class)->middleware("auth");
+Route::resource(name: 'representant', controller: RepresentantController::class)->middleware("auth");
 
 Route::get('lieuvote/bureau/create/{id}/{commune}', [BureauController::class,'createByLieuVote'])->name("lieuvote.bureau.create")->middleware("auth");
+Route::get('lieuvote/representant/create/{id}/{commune}', [RepresentantController::class,'createByLieuVote'])->name("lieuvote.bureau.create")->middleware("auth");
+
 Route::get('lieuvote/destroy/destroy/{id}', [BureauController::class,'destroyByLieuVote'])->name("destroy.by.lieuvote")->middleware("auth");
 Route::get('bureau/by/lieuvote/{id}', [BureauController::class,'getByLieuVote'])->name("bureau.by.lieuvote")->middleware("auth");
+Route::get('representant/by/lieuvote/{id}', [RepresentantController::class,'getByLieuVote'])->name("representant.by.lieuvote")->middleware("auth");
 
 
 
@@ -146,13 +151,18 @@ Route::get('/somme/electeur/by/departement/{departement}',[LieuvoteController::c
 Route::get('/stat/nb',[HomeController::class,'nbVoteStat'])->name('nbVoteStat')->middleware("auth");
 
 Route::get('/doc/bureau/{id}',[BureauController::class,'docParBureau'])->name('doc.bureau')->middleware("auth");
+Route::get('/doc/representant/{id}',[RepresentantController::class,'docParRepresentant'])->name('doc.representant')->middleware("auth");
 
 Route::get('/centrevote/by/arrondissement',[CentrevoteController::class,'centreByLocalite'])->name('centre.by.arrondissement')->middleware("auth");
 
 Route::get('/bureau/by/centrevote/{id}',[LieuvoteController::class,'getByCentrevotePrefer'])->name('lieu.vote.by.centre')->middleware("auth");
 
+Route::get('/representant/by/centrevote/{id}',[LieuvoteController::class,'getByCentreVoteRepresentant'])->name('lieu.vote.by.centre.representant')->middleware("auth");
+
+
 Route::get('/doc/centrevote/{id}',[BureauController::class,'docParCentre'])->name('doc.centre')->middleware("auth");
 
+Route::get('/representant/doc/centrevote/{id}',[RepresentantController::class,'docParCentre'])->name('representant.doc.centre')->middleware("auth");
 
 
 Route::post('/searh-arrondissement',[CentrevoteController::class,'searhArrondissement'])->name("searhArrondissement")->middleware("auth");

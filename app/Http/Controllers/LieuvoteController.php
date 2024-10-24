@@ -187,4 +187,10 @@ class LieuvoteController extends Controller
         $lieuvotes = $this->lieuvoteRepository->getByCentreVote($id);   
         return view("bureau.bureauvote",compact("lieuvotes"));
     }
+    public function getByCentreVoteRepresentant($id)
+    {
+        $lieuvotes = $this->lieuvoteRepository->getByCentreVoteRepresentant($id);   
+        return view("representant.bureauvote",compact("lieuvotes"));
+    }
+    
 }

@@ -153,6 +153,12 @@ public function getByCentreVote($id)
     ->where("centrevote_id",$id)
     ->get();
 }
+public function getByCentreVoteRepresentant($id)
+{
+    return Lieuvote::with(["centrevote","centrevote.commune"])
+    ->where("centrevote_id",$id)
+    ->get();
+}
 
 public function countByArrondissementt($id){
    

@@ -105,13 +105,16 @@
                             <td>{{ $centrevote->nom }}</td>
                          
                             <td>
-                                <a href="{{ route('lieu.vote.by.centre', $centrevote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('lieu.vote.by.centre', $centrevote->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i> Menbre Bureau</a>
                              {{--    {!! Form::open(['method' => 'DELETE', 'route'=>['centrevote.destroy', $centrevote->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
                                 <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                                 {!! Form::close() !!} --}}
-                                <a href="{{ route('doc.centre', $centrevote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i></a>
+                                <a href="{{ route('doc.centre', $centrevote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i> Membre Bureau</a><br><br>
 
-                              
+                                <a href="{{ route('lieu.vote.by.centre.representant', $centrevote->id) }}" role="button" class="btn btn-info"><i class="fas fa-eye"></i> Representant Bureau</a>
+
+                                <a href="{{ route('representant.doc.centre', $centrevote->id) }}" role="button" class="btn btn-danger"><i class="fas fa-file"></i> Representant Bureau</a>
+
 
                             </td>
 
