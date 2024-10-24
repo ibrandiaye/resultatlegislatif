@@ -72,9 +72,9 @@ CommuneRepository $communeRepository){
     }
     public function index(){
         $user = Auth::user();
-        if($user->role=="admin"  )
+        if($user->role=="admin" || $user->role=="superviseur" )
         {
-           $nbCentrevotes = $this->departementRepository->nbDepartements();
+          /*  $nbCentrevotes = $this->departementRepository->nbDepartements();
             $nbRtsCentre = $this->departementRepository->nbDepartementBEtat(true);
            // dd($nbCentrevotes);
            $tauxDepouillement = round(($nbRtsCentre/$nbCentrevotes)*100,2);
@@ -113,14 +113,14 @@ CommuneRepository $communeRepository){
            return view("dashboardr",compact("nbCentrevotes","nbRtsCentre","electeurs",
             "tauxDepouillement","votants","tauxDepouillementElecteurs","rtsParCandidats","nbVotantDiaspora",
             "nbureauDiaspora","electeursDiaspora","nCentreVote","tauxDeParticipations",
-            "nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));
-           // return redirect()->route("centre.by.arrondissement");
+            "nbElecteursTemoin",'rtsTemoins','nbVotantTemoin',"nullNational","nullEtrangers"));*/
+            return redirect()->route("centre.by.arrondissement");
         }
         else
         {
-            $nbCentreVote = $this->centrevoteRepository->countByArrondissement($user->arrondissement_id);
+           /* $nbCentreVote = $this->centrevoteRepository->countByArrondissement($user->arrondissement_id);
             $nbLieuVote  = $this->lieuvoteRepository->countByArrondissementt($user->arrondissement_id);
-            $communes   = $this->communeRepository->getByArrondissment($user->arrondissement_id);
+            $communes   = $this->communeRepository->getByArrondissment();
             $complet   = 0;
             $incomplete = 0;
             $nonCommence  = 0;
@@ -144,8 +144,8 @@ CommuneRepository $communeRepository){
             }
           //  dd($complet,$incomplete,$nonCommence);
             return view("dashboardr",compact("nbCentreVote","nbLieuVote","incomplete","nonCommence",
-        "complet"));
-       // return redirect()->route("centre.by.arrondissement");
+        "complet"));*/
+        return redirect()->route("centre.by.arrondissement");
         }
        
     }

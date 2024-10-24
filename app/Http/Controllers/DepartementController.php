@@ -134,30 +134,21 @@ class DepartementController extends Controller
 
         // 4. On insère toutes les lignes dans la base de données
       //  $rows->toArray());
-    /*  $regions = $this->regionRepository->getAll();
+      $regions = $this->regionRepository->getAll();
       foreach ($rows as $key => $departement) {
         foreach ($regions as $key1 => $region) {
             if($departement["region"]==$region->nom){
                 Departement::create([
                     "nom"=>$departement['departement'],
-                    "region_id"=>$region->id/
-                    
+                    "region_id"=>$region->id/* ,
+                    "latitude"=>$departement['latitude'],
+                     "longitude"=>$departement['longitude'] */
                 ]);
 
             }
         }
 
-    }*/
-            $departements = $this->departementRepository->getAll();
-
-            foreach ($rows as $key => $data) {
-                foreach ($departements as $key1 => $departement) {
-                    if($data["departement"]==$departement->nom){
-                       Departement::where("id",$departement->id)->update(["nbcandidat"=>$data["candidat"]]);
-                    }
-                }
-        
-            }
+    }
             // 5. On supprime le fichier uploadé
             $reader->close(); // On ferme le $reader
            // unlink($fichier);
