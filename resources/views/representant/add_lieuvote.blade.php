@@ -87,7 +87,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Liste </label>
-                                            <select class="form-control" id="liste" name="liste" required>
+                                            <select class="form-control select2  custom-select" id="liste" name="liste" required>
                                                 <option value="">Selectionner</option>
                                                     <option value="AND LIGUEY SUNU REW">AND LIGUEY SUNU REW</option>
                                                     <option value="SENEGAL KESE">SENEGAL KESE</option>

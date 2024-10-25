@@ -94,7 +94,7 @@ class RepresentantController extends Controller
     {
         $this->validate($request, [
             'nom' => 'required',
-            'nin' => 'required',
+            'nin' => 'required|unique:representants,nin',
             'profession' => 'required|string',
             'liste' => 'required|string',
             'commune_id' => 'required|string',
@@ -105,6 +105,7 @@ class RepresentantController extends Controller
             ], [
                 'nom.required' => 'Nom Obligatoire.',
                 'nin.required' => 'Numéro Obligatoire.',
+                'nin.unique' => ' cette personne est déja inscrit dans un autre bureau.',
                 'profession.required' => 'Profession Obligatoire.',
                 'commune_id.required' => 'Commune Obligatoire.',
                 'lieuvote_id.required' => 'Numéro Bureau Obligatoire.',

@@ -20,6 +20,9 @@
         <link href="{{asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Responsive datatable examples -->
         <link href="{{asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+       <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
+ 
 
         @yield("css")
 
@@ -484,9 +487,14 @@
         <!-- Responsive examples -->
         <script src="{{asset('plugins/datatables/dataTables.responsive.min.js') }}"></script>
         <script src="{{asset('plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+        <script src="{{asset('plugins/select2/select2.min.js') }}"></script>
+        <script src="{{asset('plugins/colorpicker/jquery-asColorPicker.min.js') }}"></script>
 
         <!-- Datatable init js -->
         <script src="{{asset('pages/datatables.init.js') }}"></script>
+        <script src="{{asset('pages/form-advanced.js') }}"></script>
+             
+
         @yield("script")
 
         <!-- App js -->
