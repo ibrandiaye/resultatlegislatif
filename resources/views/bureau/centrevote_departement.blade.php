@@ -11,7 +11,6 @@
 
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ route('centrevote.create') }}" >Liste des Lieu de vote</a></li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Starter</h4>

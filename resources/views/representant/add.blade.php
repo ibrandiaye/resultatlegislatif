@@ -12,7 +12,6 @@
 
                         <ol class="breadcrumb hide-phone p-0 m-0">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('bureau.index') }}">LISTE </a></li>
 
                         </ol>
                     </div>

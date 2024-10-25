@@ -53,7 +53,7 @@ table{
 
     <!-- Begin page -->
     @foreach ($centrevote->lieuvotes as $lieuvote)
-    @foreach ($lieuvote->representants as $representant)
+    @foreach ($lieuvote->representants as  $key =>  $representant)
         
 
 
@@ -65,8 +65,8 @@ table{
 </div>
 <div class="row ">
     <div class="col-12">
-       <p style="font-size: 17px;"> M. (civilité) <strong>  {{$representant->nom}} </strong> numéro carte électeur ou numéro récépissé <strong>{{$representant->nin}}</strong> profession 
-        <strong>{{$representant->profession}}</strong> est le (la) représentant (e) de la liste <strong>{{$representant->liste }}</strong> au bureau de votre de la
+       <p style="font-size: 17px;"> M.  <strong>  {{$representant->nom}} </strong> numéro carte électeur ou numéro récépissé <strong>{{$representant->nin}}</strong> profession 
+        <strong>{{$representant->profession}}</strong> est  @if( $representant->sexe=="M") le  représentant @elseif($representant->sexe=="F") la représentante @else le (la) représentant (e) @endif  de la liste <strong>{{$representant->liste }}</strong> au bureau de vote 
         numéro <strong>{{ $lieuvote->nom}}</strong> du lieu de vote  <strong>{{ $centrevote->nom }}</strong> de la commune de   <strong>{{ $centrevote->commune->nom }}</strong>
 
 
@@ -75,12 +75,23 @@ table{
     </div>
 </div>
 <div class="row">
-    <div class="col-10"></div>
+    <div class="col-2  text-left">
+        <h6><u>CEDA        </u></h6>
+    </div>
+    <div class="col-8"></div>
     <div class="col-2  text-right">
         <h6><u>Le sous-préfet        </u></h6>
     </div>
 </div>
+@if($key > 0 && $key%2!=0)
+<div class="page-break"></div>
+@endif
+@if( $key%2==0)
+   
+    <br><br><br><br><br><br><br><br>
+----------------------------------------------------------------------------------------------------------------------------------------------
 <br><br><br><br><br><br><br><br>
+@endif
 @endforeach
 @endforeach
 

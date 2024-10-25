@@ -12,7 +12,6 @@
 
                         <ol class="breadcrumb hide-phone p-0 m-0">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}" role="button" class="btn btn-primary">ACCUEIL</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('representant.index') }}" role="button" class="btn btn-primary">RETOUR</a></li>
 
                         </ol>
 
@@ -48,7 +47,7 @@
                                 <input  type="hidden" name="lieuvote_id" value="{{ $representant->lieuvote_id }}">
                                 <div class="col-lg-4">
                                     <div class="form-group ">
-                                        <label>Numéro CNI </label>
+                                        <label>Numéro Electeur </label>
                                         <input type="text" name="nin" id="cni" class="form-control" value="{{ $representant->nin }}"  required>
                                         <span class="input-group-append">
                                             <button type="button" id="btncni" class="btn  btn-primary"><i class="fa fa-search"></i> Rechercher</button>
@@ -81,6 +80,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <input type="hidden" name="sexe"  id="sexe">
                              </div>
                                 <div>
                                     <center>
@@ -97,65 +97,65 @@
 @endsection
 @section('script')
     <script>
-         url_app = '{{ config('app.url') }}';
-         $("#commune_id").change(function () {
-            var commune_id =  $("#commune_id").children("option:selected").val();
-                var centrevote = "<option value=''>Veuillez selectionner</option>";
+ url_api = '{{ config('app.api_url') }}';
+ departement = '{{$commune->departement->nom}}';
+ console.log(departement);
+        $("#btncni").click(function () 
+        {
+            var cni = $("#cni").val();
+            $.blockUI({ message: "<p>Patienter</p>" }); 
                 $.ajax({
-                    type:'GET',
-                    url:url_app+'/centrevote/by/commune/'+commune_id,
-                //   url:'http://vmi435145.contaboserver.net:9000/commune/by/commune/'+commune_id,
-                 //  url:'http://127.0.0.1/gestionmateriel/public/commune/by/commune/'+commune_id,
-                //  url:'http://127.0.0.1:8000/commune/by/commune/'+commune_id,
-                    vdata:'_token = <?php echo csrf_token() ?>',
+                type:'GET',
+                // url:'http://127.0.0.1:7777/api/cartes/get/by/nin?nin='+cni,
+                url: url_api+'cartes/get/by/numelec?numelec='+cni,
+          
+                    data:'_token = <?php echo csrf_token() ?>',
                     success:function(data) {
+                        console.log(data,data.length);
+                        if(data.length >=1)
+                        {
+                            console.log(data[0].ELEC_DATE_NAISSANCE)
+                            $("#prenom").val(data[0].ELEC_PRENOM)
+                            $("#nom").val(data[0].ELEC_PRENOM +" "+data[0].ELEC_NOM)
+                            $("#sexe").val(data[0].ELEC_SEXE)
+                            sexeSaisi = data[0].ELEC_SEXE;
+                            console.log("sexe saisi",sexeSaisi)
+                           // $("#datenaiss").val(convertirDate(data[0].ELEC_DATE_NAISSANCE))
+                            $("#numelecteur").val(data[0].ELEC_NUM_ELECTEUR)
+                            $("#lieunaiss").val(data[0].ELEC_LIEU_NAISSANCE)
+                            $("#commune").val(data[0].COMMUNE);
+                            if(departement!=data[0].DEPARTEMENT)
+                            {
+                                $("#error").append(" <div  class='alert alert-danger'> Cette Personne n'est pas dans le departement.<br> Son departement est :"+data[0].DEPARTEMENT+"</div>");
 
-                        $.each(data,function(index,row){
-                            //alert(row.nomd);
-                            centrevote +="<option value="+row.id+">"+row.nom+"</option>";
-
-                        });
-                        $("#centrevote_id").empty();
-                        $("#centrevote_id").append(centrevote);
+                            }
+                          /*  const givenDate = new Date(convertirDate( data[0].ELEC_DATE_NAISSANCE));
+                            const today = new Date();
+                            // Calcul de la différence en millisecondes
+                            const differenceInMilliseconds = today.getTime() - givenDate.getTime();
+                            const differenceInYears = differenceInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+                            console.log(differenceInYears)
+                            if(differenceInYears< 25)
+                            {
+                                $("#error").append(" <div  class='alert alert-danger'> age minimun non ateint. age :"+parseInt(differenceInYears)+" ans</div>");
+                            }
+                            $("#present").val(1);
+                            $("#validation_modal").append("Voulez-vous enregistrer  "+data[0].ELEC_PRENOM+" "+data[0].ELEC_NOM+"  "+data[0].NIN+"?");
+*/
+                        }
+                        else
+                        {
+                           // $("#validation_modal").empty();
+                           // $("#present").val(0);
+                            //alert("CNI non trouve");
+                            $("#error").append(" <div  class='alert alert-danger'> Personne non identifier</div>");
+                        }
+                        setTimeout($.unblockUI, 1); 
+                    },
+                    error:function(){
+                        setTimeout($.unblockUI, 1); 
                     }
                 });
-            });
-
-            $("#centrevote_id").change(function () {
-                var centrevote_id =  $("#centrevote_id").children("option:selected").val();
-                    var lieuvote = "<option value=''>Veuillez selectionner</option>";
-                    $.ajax({
-                        type:'GET',
-                        url:url_app+'/lieuvote/by/centrevote/'+centrevote_id,
-                        data:'_token = <?php echo csrf_token() ?>',
-                        success:function(data) {
-
-                            $.each(data,function(index,row){
-                              //  alert(row.id);
-                                lieuvote +="<option value="+row.id+">"+row.nom+"</option>";
-
-                            });
-                            $("#lieuvote_id").empty();
-                            $("#lieuvote_id").append(lieuvote);
-                        }
-                    });
-                });
-                $("#lieuvote_id").change(function () {
-                var lieuvote_id =  $("#lieuvote_id").children("option:selected").val();
-                    $.ajax({
-                        type:'GET',
-                        url:url_app+'/electeur/by/lieuvote/'+lieuvote_id,
-                        data:'_token = <?php echo csrf_token() ?>',
-                        success:function(data) {
-                         //   alert(data)
-
-                            $('#electeur').empty()
-                           $('#electeur').append("<h4> Nombre Electeurs : "+data.nb+"</h4>")
-                           $('#nb_electeur').val(data.nb)
-
-                        }
-                    });
-                });
-
+        });
     </script>
 @endsection

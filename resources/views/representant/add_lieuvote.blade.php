@@ -11,8 +11,7 @@
 
 
                         <ol class="breadcrumb hide-phone p-0 m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('representant.index') }}">LISTE </a></li>
+                        <li class="breadcrumb-item active"><a class="btn btn-primary" href="{{ route('lieu.vote.by.centre.representant',$lieuvote->id) }}" style="color: white !important;">Terminer </a></li>
 
                         </ol>
                     </div>
@@ -24,7 +23,7 @@
         <form action="{{ route('representant.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
              <div class="card ">
-                        <div class="card-header text-center">FORMULAIRE D'ENREGISTREMENT D'UNE Commune</div>
+                        <div class="card-header text-center">FORMULAIRE D'ENREGISTREMENT D'UN REPRESENTANT</div>
                             <div class="card-body">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -57,7 +56,7 @@
                                     <div class="col-lg-4">
                                         
                                         <div class="form-group ">
-                                            <label>Numéro CNI </label>
+                                            <label>Numéro Electeur </label>
                                             <input type="text" name="nin" id="cni" class="form-control"  required>
                                             <span class="input-group-append">
                                                 <button type="button" id="btncni" class="btn  btn-primary"><i class="fa fa-search"></i> Rechercher</button>
@@ -78,7 +77,7 @@
                                         </div>
                                     </div> --}}
                                   
-                                   
+                                   <input type="hidden" name="sexe"  id="sexe">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Profession </label>
@@ -90,9 +89,13 @@
                                             <label>Liste </label>
                                             <select class="form-control" id="liste" name="liste" required>
                                                 <option value="">Selectionner</option>
-                                                <option value="SAM SA KADDU">SAM SA KADDU</option>
-                                                <option value="PASTEF" >PASTEF</option>
-                                                <option value="Nouvelle Responsabilite" >Nouvelle Responsabilite </option>
+                                                <option value="SENEGAL KESE">SENEGAL KESE</option>
+                                                <option value="UNION DES GROUPES PATRIOTIQUES" >UNION DES GROUPES PATRIOTIQUES</option>
+                                                <option value="COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME  VOIE" >COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME  VOIE </option>
+
+                                                <option value="COALITION XAAL YOON">COALITION XAAL YOON</option>
+                                                <option value="UNION CITOYENNE BUNT- BI" >UNION CITOYENNE BUNT- BI</option>
+                                                <option value="JUBANTI SENEGAL" >JUBANTI SENEGAL </option>
 
                                             </select>
                                         </div>
@@ -128,7 +131,7 @@
                 $.ajax({
                 type:'GET',
                 // url:'http://127.0.0.1:7777/api/cartes/get/by/nin?nin='+cni,
-                url: url_api+'cartes/get/by/nin?nin='+cni,
+                url: url_api+'cartes/get/by/numelec?numelec='+cni,
           
                     data:'_token = <?php echo csrf_token() ?>',
                     success:function(data) {

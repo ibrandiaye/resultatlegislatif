@@ -8,6 +8,7 @@ use App\Repositories\CommuneRepository;
 use App\Repositories\LieuvoteRepository;
 use App\Repositories\RepresentantRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RepresentantController extends Controller
 {
@@ -72,12 +73,14 @@ class RepresentantController extends Controller
         $lieuvote_id = $id;
         $commune_id  = $commune;
         $commune = $this->communeRepository->getById($commune_id);
+        $lieuvote = DB::table("lieuvotes")->where("id",$id)->first();
+        //dd($lieuvote);
        /*  $representants = $this->representantRepository->getByLieuVote($id);
         if(count($representants) >=3)
         {
             return redirect()->back()->with("error","Vous avez déja atteind les trois membre");
         } */
-        return view('representant.add_lieuvote',compact('lieuvote_id','commune_id','commune'));
+        return view('representant.add_lieuvote',compact('lieuvote_id','commune_id','commune','lieuvote'));
     }
 
     /**

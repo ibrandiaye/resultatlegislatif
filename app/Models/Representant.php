@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Representant extends Model
 {
     use HasFactory;
-    protected $fillable = ["nom","nin","profession","liste","commune_id","lieuvote_id"  ] ;
+    protected $fillable = ["nom","nin","profession","liste","commune_id","lieuvote_id","sexe"  ] ;
     
     public function commune()
     {
