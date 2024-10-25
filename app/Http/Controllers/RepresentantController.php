@@ -8,6 +8,7 @@ use App\Repositories\CommuneRepository;
 use App\Repositories\LieuvoteRepository;
 use App\Repositories\RepresentantRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RepresentantController extends Controller
@@ -138,7 +139,9 @@ class RepresentantController extends Controller
     {
         $lieuvotes = $this->lieuvoteRepository->getAll();
         $representant = $this->representantRepository->getById($id);
-        return view('representant.edit',compact('representant','lieuvotes'));
+        $commune = $this->communeRepository->getById($representant->commune_id);
+
+        return view('representant.edit',compact('representant','lieuvotes','commune'));
     }
 
     /**

@@ -65,11 +65,12 @@ Route::resource(name: 'bureau', controller: BureauController::class)->middleware
 Route::resource(name: 'representant', controller: RepresentantController::class)->middleware("auth");
 
 Route::get('lieuvote/bureau/create/{id}/{commune}', [BureauController::class,'createByLieuVote'])->name("lieuvote.bureau.create")->middleware("auth");
-Route::get('lieuvote/representant/create/{id}/{commune}', [RepresentantController::class,'createByLieuVote'])->name("lieuvote.bureau.create")->middleware("auth");
+Route::get('lieuvote/representant/create/{id}/{commune}', [RepresentantController::class,'createByLieuVote'])->name("lieuvote.representant.create")->middleware("auth");
 
 Route::get('lieuvote/destroy/destroy/{id}', [BureauController::class,'destroyByLieuVote'])->name("destroy.by.lieuvote")->middleware("auth");
 Route::get('bureau/by/lieuvote/{id}', [BureauController::class,'getByLieuVote'])->name("bureau.by.lieuvote")->middleware("auth");
 Route::get('representant/by/lieuvote/{id}', [RepresentantController::class,'getByLieuVote'])->name("representant.by.lieuvote")->middleware("auth");
+Route::get('representant/destroy/{id}', [RepresentantController::class,'destroyByLieuVote'])->name("destroy.by.representant")->middleware("auth");
 
 
 

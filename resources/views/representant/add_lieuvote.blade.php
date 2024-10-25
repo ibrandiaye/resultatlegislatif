@@ -89,14 +89,49 @@
                                             <label>Liste </label>
                                             <select class="form-control" id="liste" name="liste" required>
                                                 <option value="">Selectionner</option>
-                                                <option value="SENEGAL KESE">SENEGAL KESE</option>
-                                                <option value="UNION DES GROUPES PATRIOTIQUES" >UNION DES GROUPES PATRIOTIQUES</option>
-                                                <option value="COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME  VOIE" >COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME  VOIE </option>
-
-                                                <option value="COALITION XAAL YOON">COALITION XAAL YOON</option>
-                                                <option value="UNION CITOYENNE BUNT- BI" >UNION CITOYENNE BUNT- BI</option>
-                                                <option value="JUBANTI SENEGAL" >JUBANTI SENEGAL </option>
-
+                                                    <option value="AND LIGUEY SUNU REW">AND LIGUEY SUNU REW</option>
+                                                    <option value="SENEGAL KESE">SENEGAL KESE</option>
+                                                    <option value="RV NAATANGE">RV NAATANGE</option>
+                                                    <option value="UNION DES GROUPES PATRIOTIQUES">UNION DES GROUPES PATRIOTIQUES</option>
+                                                    <option value="COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME VOIE">COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3EME VOIE</option>
+                                                    <option value="COALITION XAAL YOON">COALITION XAAL YOON</option>
+                                                    <option value="UNION CITOYENNE BUNT-BI">UNION CITOYENNE BUNT-BI</option>
+                                                    <option value="JUBANTI SENEGAL">JUBANTI SENEGAL</option>
+                                                    <option value="AND CI KOOLUTE NGUIR SENEGAL (AKS)">AND CI KOOLUTE NGUIR SENEGAL (AKS)</option>
+                                                    <option value="ALSAR">ALSAR</option>
+                                                    <option value="COALITION NAFOORE/SENEGAL">COALITION NAFOORE/SENEGAL</option>
+                                                    <option value="UNION NATIONALE POUR L’INTEGRATION, LE TRAVAIL ET L’EQUITE (U.N.I.T.E)">UNION NATIONALE POUR L’INTEGRATION, LE TRAVAIL ET L’EQUITE (U.N.I.T.E)</option>
+                                                    <option value="SAMM SA GAFAKA-SAMM SA ELLEG / ACSIF">SAMM SA GAFAKA-SAMM SA ELLEG / ACSIF</option>
+                                                    <option value="COALITION WAREEF">COALITION WAREEF</option>
+                                                    <option value="COALITION ACTIONS">COALITION ACTIONS</option>
+                                                    <option value="UNION NAATALL KAAW-GUI (U.N.K)">UNION NAATALL KAAW-GUI (U.N.K)</option>
+                                                    <option value="COALITION « DUNDU »">COALITION « DUNDU »</option>
+                                                    <option value="LA MARCHE DES TERRITOIRES ANDU-NAWLE">LA MARCHE DES TERRITOIRES ANDU-NAWLE</option>
+                                                    <option value="LES NATIONALISTES JEL LINU MOOM">LES NATIONALISTES JEL LINU MOOM</option>
+                                                    <option value="COALITION MANKOO LIGGEEYAL SENEGAAL (MLS)">COALITION MANKOO LIGGEEYAL SENEGAAL (MLS)</option>
+                                                    <option value="COALITION DEKKAL TERANGA">COALITION DEKKAL TERANGA</option>
+                                                    <option value="AND DOOLEL LIGUEY KAT YI">AND DOOLEL LIGUEY KAT YI</option>
+                                                    <option value="PARTI ENSEMBLE POUR LE SENEGAL (PEPS)">PARTI ENSEMBLE POUR LE SENEGAL (PEPS)</option>
+                                                    <option value="ALLIANCE SAMM SUNU SENEGAAL (A3S)">ALLIANCE SAMM SUNU SENEGAAL (A3S)</option>
+                                                    <option value="COALITION AND BEESAL SENEGAL-ABS">COALITION AND BEESAL SENEGAL-ABS</option>
+                                                    <option value="PARTI GARAP-ADS">PARTI GARAP-ADS</option>
+                                                    <option value="COALITION GOX YU BEES">COALITION GOX YU BEES</option>
+                                                    <option value="COALITION REPUBLICAINE/SAMM SUNU REW JOTALI KADDU ASKANWI">COALITION REPUBLICAINE/SAMM SUNU REW JOTALI KADDU ASKANWI</option>
+                                                    <option value="COALITION « DEFAR SA GOKH »">COALITION « DEFAR SA GOKH »</option>
+                                                    <option value="COALITION FEDERATION DU RENOUVEAU">COALITION FEDERATION DU RENOUVEAU</option>
+                                                    <option value="PARTI ALLIANCE JEF JEL">PARTI ALLIANCE JEF JEL</option>
+                                                    <option value="PASTEF">PASTEF</option>
+                                                    <option value="ENTITE ALLIANCE NATIONALE POUR LA PATRIE">ENTITE ALLIANCE NATIONALE POUR LA PATRIE</option>
+                                                    <option value="COALITION FARLU">COALITION FARLU</option>
+                                                    <option value="AND SUXALI PRODUCTION,TRANSPORT AK COMMMERCE /LAAP FAL JIKKO">AND SUXALI PRODUCTION,TRANSPORT AK COMMMERCE /LAAP FAL JIKKO</option>
+                                                    <option value="SECTEUR PRIVE">SECTEUR PRIVE</option>
+                                                    <option value="COALITION DIAM AK NJARIN">COALITION DIAM AK NJARIN</option>
+                                                    <option value="COALITION SAMM SA KAADU">COALITION SAMM SA KAADU</option>
+                                                    <option value="PARTI BES DU NAKK">PARTI BES DU NAKK</option>
+                                                    <option value="TAKKU WALLU SENEGAL (TWS)">TAKKU WALLU SENEGAL (TWS)</option>
+                                                    <option value="GRAND RASSEMBLEMENT DES ARTISANTS DU SENEGAL">GRAND RASSEMBLEMENT DES ARTISANTS DU SENEGAL</option>
+                                                    <option value="COALITION SOPI SENEGAL">COALITION SOPI SENEGAL</option>
+                                                
                                             </select>
                                         </div>
                                     </div>

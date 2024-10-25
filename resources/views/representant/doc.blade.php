@@ -55,16 +55,17 @@ table{
     @foreach ($representants as $key =>  $representant)
         
 
-
+    <br><br>
 <div class="row text-center" >
 
-            <h6><strong><u>NOTIFICATION DE REPRESENTANT DE LISTE DE CANDIDAT DANS LES BUREAUX DE VOTE
+            <h4><strong><u>NOTIFICATION DE REPRESENTANT DE LISTE DE CANDIDAT DANS LES BUREAUX DE VOTE<br><br>
                 POUR LES ELECTIONS LEGISLATIVES ANTICIPEES DU 17 NOVEMBRE 2024</u></strong>
-                 </h6>
+                 </h4>
 </div>
+<br><br><br><br><br>
 <div class="row ">
     <div class="col-12">
-       <p style="font-size: 20px;"> M. <strong>  {{$representant->nom}} </strong> numéro carte électeur ou numéro récépissé <strong>{{$representant->nin}}</strong> profession 
+       <p style="font-size: 23px;"> M. <strong>  {{$representant->nom}} </strong> numéro carte électeur ou numéro récépissé <strong>{{$representant->nin}}</strong> profession 
         <strong>{{$representant->profession}}</strong> est @if( $representant->sexe=="M") le  représentant @elseif($representant->sexe=="F") la représentante @else le (la) représentant (e) @endif de la liste <strong>{{$representant->liste }}</strong> au bureau de votre 
         numéro <strong>{{ $representant->lieuvote }}</strong> du lieu de vote  <strong>{{ $representant->centrevote }}</strong> de la commune de   <strong>{{ $representant->commune }}</strong>
 
@@ -73,13 +74,14 @@ table{
 
     </div>
 </div>
+<br><br><br>
 <div class="row">
     <div class="col-2  text-left">
-        <h6><u>CEDA        </u></h6>
+        <h4><u>CEDA        </u></h4>
     </div>
-    <div class="col-8"></div>
-    <div class="col-2  text-right">
-        <h6><u>Le sous-préfet        </u></h6>
+    <div class="col-5"></div>
+    <div class="col-3  text-right">
+        <h4><u>Le sous-préfet        </u></h4>
     </div>
 </div>
 @if($key > 0 && $key%2!=0)
