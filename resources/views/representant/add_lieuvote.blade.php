@@ -11,7 +11,7 @@
 
 
                         <ol class="breadcrumb hide-phone p-0 m-0">
-                        <li class="breadcrumb-item active"><a class="btn btn-primary" href="{{ route('lieu.vote.by.centre.representant',$lieuvote->id) }}" style="color: white !important;">Terminer </a></li>
+                        <li class="breadcrumb-item active"><a class="btn btn-primary" href="{{ route('lieu.vote.by.centre.representant',$lieuvote->centrevote_id) }}" style="color: white !important;">Terminer </a></li>
 
                         </ol>
                     </div>
