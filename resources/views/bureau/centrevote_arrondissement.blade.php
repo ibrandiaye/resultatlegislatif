@@ -110,9 +110,9 @@
                                 {!! Form::close() !!} --}}
                                 <a href="{{ route('doc.centre', $centrevote->id) }}" role="button" class="btn btn-warning"><i class="fas fa-file"></i> Membre Bureau</a><br><br>
 
-                                <a href="{{ route('lieu.vote.by.centre.representant', $centrevote->id) }}" role="button" class="btn btn-info"><i class="fas fa-eye"></i> Representant Bureau</a>
+                                <a href="{{ route('lieu.vote.by.centre.representant', $centrevote->id) }}" role="button" class="btn btn-info"><i class="fas fa-eye"></i> Representant Liste</a>
 
-                                <a href="{{ route('representant.doc.centre', $centrevote->id) }}" role="button" class="btn btn-danger"><i class="fas fa-file"></i> Representant Bureau</a>
+                                <a href="{{ route('representant.doc.centre', $centrevote->id) }}" role="button" class="btn btn-danger"><i class="fas fa-file"></i> Representant Liste</a>
 
 
                             </td>

@@ -58,7 +58,7 @@ table{
     <br><br>
 <div class="row text-center" >
 
-            <h4><strong><u>NOTIFICATION DE REPRESENTANT DE LISTE DE CANDIDAT DANS LES BUREAUX DE VOTE<br><br>
+            <h4><strong><u>NOTIFICATION DE REPRESENTANT DE LISTE DE CANDIDAT DANS LES BUREAUX DE <br><br>VOTE
                 POUR LES ELECTIONS LEGISLATIVES ANTICIPEES DU 17 NOVEMBRE 2024</u></strong>
                  </h4>
 </div>
@@ -74,7 +74,7 @@ table{
 
     </div>
 </div>
-<br><br><br>
+<br><br>
 <div class="row">
     <div class="col-2  text-left">
         <h4><u>CEDA        </u></h4>
