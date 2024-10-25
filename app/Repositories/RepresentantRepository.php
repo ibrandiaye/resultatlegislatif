@@ -61,6 +61,18 @@ class RepresentantRepository extends RessourceRepository{
         ->get();
     }
 
+    public function getByRepresentantListe($liste)
+    {
+        return DB::table("representants")
+        ->join("communes","representants.commune_id","=","communes.id")
+        ->join("lieuvotes","representants.lieuvote_id","=","lieuvotes.id")
+        ->join("centrevotes","lieuvotes.centrevote_id","=","centrevotes.id")
+        ->select("representants.*","communes.nom as commune","lieuvotes.nom as lieuvote","centrevotes.nom as centrevote","communes.arrondissement_id as arrondissement_id")
+        ->where("representants.liste",$liste)
+        ->get();
+    }
+
+
     public function getByCentreVote($id)
     {
         return DB::table("representants")

@@ -176,3 +176,5 @@ Route::get('/chercher/bureau',[BureauController::class,'chercherBureau'])->name(
 
 Route::post('/search/tel',action: [BureauController::class,'searchTel'])->name("search.tel")->middleware("auth");
 
+Route::get('/liste',action: [RepresentantController::class,'liste'])->name('liste.caolition.partie')->middleware("auth");
+Route::get('/liste/imprimer/{liste}',action: [RepresentantController::class,'listeImprimer'])->name('liste.imprimer')->middleware("auth");

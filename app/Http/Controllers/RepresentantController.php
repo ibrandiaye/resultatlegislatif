@@ -178,6 +178,14 @@ class RepresentantController extends Controller
        
         return view("representant.doc",compact("representants"));
     }
+    public function listeImprimer($liste)
+    {
+     //   dd("ol");
+        $representants = $this->representantRepository->getByRepresentantListe($liste);
+       
+        return view("representant.doc",compact("representants"));
+    }
+    
     public function docParCentre($id)
     {
         $centrevote = $this->centrevoteRepository->getRepresentantByCentre($id);
@@ -198,4 +206,8 @@ class RepresentantController extends Controller
         return view("representant.chercher",compact("representants"));
     }
    
+    public function liste()
+    {
+        return view("representant.liste");
+    }
 }

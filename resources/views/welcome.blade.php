@@ -331,7 +331,11 @@
                                  <a href="{{ route('chercher.bureau') }}" class="waves-effect"><i class="mdi mdi-loupe"></i><span>Chercher </span></a>
  
                              </li>
+                             <li>
+                                <a href="{{ route('liste.caolition.partie') }}" class="waves-effect"><i class="mdi mdi-loupe"></i><span>Imprimer Representanr Par Liste  </span></a>
 
+                            </li>
+                            
                             <li> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalform2{{Auth::user()->id}}">
                                 modifier Mot de passe
                             </button></li>

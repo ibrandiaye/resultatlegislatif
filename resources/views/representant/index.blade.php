@@ -32,7 +32,7 @@
         <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES representants</div>
             <div class="card-body">
               
-                <table id="datatable" class="table table-bordered table-responsive-md table-striped text-center">
+                <table id="datatable" class="table table-bordered datatable table-responsive-md table-striped text-center">
                     <thead>
                         <tr>
                             <th>#</th>
