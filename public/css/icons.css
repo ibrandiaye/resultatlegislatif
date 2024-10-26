@@ -2746,11 +2746,11 @@ readers do not read off random characters that represent icons */
   content: "\f66d";
 }
 
-.fa-kickstarter:before {
+.fa-kick@if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif:before {
   content: "\f3bb";
 }
 
-.fa-kickstarter-k:before {
+.fa-kick@if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif-k:before {
   content: "\f3bc";
 }
 

@@ -14,7 +14,7 @@
                                 <li class="breadcrumb-item active"><a href="{{ route('lieuvote.create') }}" >Liste des lieuvotes</a></li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Starter</h4>
+                            <h4 class="page-title">@if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif</h4>
                         </div>
                     </div>
                     <div class="clearfix"></div>

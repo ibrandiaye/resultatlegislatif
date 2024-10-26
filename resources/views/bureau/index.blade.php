@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
                 </ol>
             </div>
-            <h4 class="page-title">Starter</h4>
+            <h4 class="page-title">@if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -29,7 +29,7 @@
 
 <div class="col-12">
     <div class="card ">
-        <div class="card-header  text-center">LISTE D'ENREGISTREMENT DES bureaus</div>
+        <div class="card-header  text-center">liste d'enregistrement des bureaux         </div>
             <div class="card-body">
               
                 <table id="datatable" class="table table-bordered table-responsive-md table-striped text-center">

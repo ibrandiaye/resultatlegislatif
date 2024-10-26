@@ -15,7 +15,7 @@
 
                         </ol>
                     </div>
-                    <h4 class="page-title">Starter</h4>
+                    <h4 class="page-title"> @if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif</h4>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -65,6 +65,12 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
+                                            <label>Profession </label>
+                                            <input type="text" name="profession"  value="{{ old('profession') }}" class="form-control"  >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
                                             <label>Nom </label>
                                             <input type="text" name="nom" id="nom"  value="{{ old('nom') }}" class="form-control"  required>
                                         </div>
@@ -78,12 +84,7 @@
                                     </div> --}}
                                   
                                    <input type="hidden" name="sexe"  id="sexe">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label>Profession </label>
-                                            <input type="text" name="profession"  value="{{ old('profession') }}" class="form-control"  >
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Liste </label>
@@ -207,7 +208,7 @@
                            // $("#validation_modal").empty();
                            // $("#present").val(0);
                             //alert("CNI non trouve");
-                            $("#error").append(" <div  class='alert alert-danger'> Personne non identifier</div>");
+                            $("#error").append(" <div  class='alert alert-danger'>personne non identifiée</div>");
                         }
                         setTimeout($.unblockUI, 1); 
                     },

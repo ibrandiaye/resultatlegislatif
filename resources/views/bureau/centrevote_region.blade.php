@@ -13,7 +13,7 @@
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}" >ACCUEIL</a></li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Starter</h4>
+                            <h4 class="page-title">@if(  Auth::user()->role=='sous_prefet' && !empty(Auth::user()->arrondissement) ) {{  Auth::user()->arrondissement->nom}}  @elseif(Auth::user()->role=='prefet' && !empty(Auth::user()->departement))  {{  Auth::user()->departement->nom}} @endif</h4>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -48,10 +48,10 @@
            
         </div>
         <div class="col">
-            <h5>Imcomplete : {{$incomplete}}</h4>
+            <h5>Incomplète  : {{$incomplete}}</h4>
         </div>
         <div class="col">
-            <h5>Nom Commencer : {{$nonCommence}}</h4>
+            <h5>Non commencé : {{$nonCommence}}</h4>
         </div>
     </div>
 <div class="col-12">
